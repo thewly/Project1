@@ -8,11 +8,18 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar">
             <a class="navbar-brand">NEXT JRNY</a>
         </nav>
         <div class="row">
@@ -23,9 +30,26 @@
         </div>
         <div class="row">
             <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
-            <div class="col-6 justify-content-center" id="splash">
-                <h2>WHERE'S THE NEXT JRNY?</h2>
-
+            <div class="col-6">
+                <div class="splash d-flex">
+                    <div class="container align-self-center">
+                        <h2>Where's the NEXT JRNY?</h2>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="destinationInput" placeholder="Enter Destination">
+                            </div>
+                            <div class="form-row">
+                                <div class="col-auto">
+                                    <!-- This will become a datepicker on next phase -->
+                                    <input type="text" class="form-control" id="departureInput" placeholder="Depart">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary" id="searchButton"><i class="far fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
         </div>
@@ -37,5 +61,11 @@
         </div>
 
     </div>
+
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
 </body>
 </html>

@@ -1,10 +1,24 @@
+/* GLOBAL STYLING */
 body {
-    color: lightgray;
+    color: #ffffff;
+    font-family: 'Raleway', sans-serif;
 }
 
 .navbar {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin: 0 10px 10px;
+    background-color: #092168;
+}
+
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: -.5rem;
 }
 
 .row {
@@ -21,7 +35,14 @@ img {
     object-fit: cover;
 }
 
-#splash {
-    background-color: #2E7582;
+.btn {
+    background-color: #092168;
+}
 
+/* SPLASH */
+
+.splash {
+    background-color: #03899C;
+    height: 250px;
+    padding: 20px;
 }
