@@ -21,6 +21,15 @@ h2 {
     margin-top: -.5rem;
 }
 
+/* NEXT PHASE: FADE OUT PAGES
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s;
+} */
+
+/* GENERAL */
+
 .row {
     margin: 0;
 }
