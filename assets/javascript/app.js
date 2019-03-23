@@ -6,18 +6,24 @@ var connectID = ''
 $(document).on('click', '.switch-element-btn', function(){
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
-  $(`#${hideElement}-container`).addClass('hidden-element')
-  $(`#${showElement}-container`).removeClass('hidden-element')
+  $(`#${hideElement}`).addClass('hidden-element')
+  $(`#${showElement}`).removeClass('hidden-element')
 })
-<button class='switch-page-btn' data-hide='current-page' data-show='landing-page' type="button" name="button">Return Home</button>
 
-$('#submit-search').on('click', function(){
-  var name = $('#input-name').val()
-  var startLocation = $('#input-startLocation').val()
-  var endLocation = $('#input-endLocation').val()
-  var date = $('#input-date').val()
+$('#submit-btn').on('click', function(){
+  var name = $('#nameInput').val()
+  var startLocation = $('#originInput').val()
+  var endLocation = $('#destinationInput').val()
+  var date = $('#departureInput').val()
 
-
+  console.log('submitting data...')
+  console.log(name, startLocation, endLocation, date)
+  database.ref('/searches').push({
+    name: name,
+    startLoc: startLocation,
+    endLoc: endLocation,
+    date: date,
+  })
 })
 
 // Testing Google Auth
