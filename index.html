@@ -5,15 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NEXT JRNY | Make getting there half the fun</title>
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
+        authDomain: "smu-group-project-one.firebaseapp.com",
+        databaseURL: "https://smu-group-project-one.firebaseio.com",
+        projectId: "smu-group-project-one",
+        storageBucket: "smu-group-project-one.appspot.com",
+        messagingSenderId: "948311193030"
+      };
+      firebase.initializeApp(config);
+    </script>
 </head>
 
 <body>
     <div class="container">
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand">NEXT JRNY</a>
+            <button id='google-login-btn'>Log In</button>
         </nav>
         <div class="row">
             <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
@@ -37,5 +55,6 @@
         </div>
 
     </div>
+    <script src='./assets/javascript/app.js'></script>
 </body>
 </html>

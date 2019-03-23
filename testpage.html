@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NEXT JRNY | Make getting there half the fun</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
+        authDomain: "smu-group-project-one.firebaseapp.com",
+        databaseURL: "https://smu-group-project-one.firebaseio.com",
+        projectId: "smu-group-project-one",
+        storageBucket: "smu-group-project-one.appspot.com",
+        messagingSenderId: "948311193030"
+      };
+      firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <div id='landing-page-container' class="container">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand">NEXT JRNY</a>
+        </nav>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock2.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock11.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock4.jpg" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
+            <div class="col-6 justify-content-center" id="splash">
+                <h2>WHERE'S THE NEXT JRNY?</h2>
+                <p>Would you like to do a new search or look at others searches?</p>
+                <button class='switch-page-btn' data-page='new-search' type="button" name="button">New Search</button>
+
+            </div>
+            <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock7.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock8.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock9.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock10.jpg" alt=""></div>
+        </div>
+
+    </div>
+
+    <div id='new-search-container' class="container" style='display: none;'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand">NEXT JRNY</a>
+        </nav>
+        <div class="row">
+          <div class="col-3"><img src="assets/images/stock7.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock8.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock9.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock10.jpg" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
+            <div class="col-6 justify-content-center" id="splash">
+                <h2>Let's make a search!</h2>
+                <button class='switch-page-btn' data-page='search-history' type="button" name="button">Add a search</button>
+                <button class='switch-page-btn' data-page='landing-page' type="button" name="button">Return Home</button>
+
+            </div>
+            <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
+        </div>
+        <div class="row">
+          <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock2.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock11.jpg" alt=""></div>
+          <div class="col-3"><img src="assets/images/stock4.jpg" alt=""></div>
+        </div>
+
+    </div>
+
+    <div id='search-history-container' class="container" style='display: none;'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand">NEXT JRNY</a>
+        </nav>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock2.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock11.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock4.jpg" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
+            <div class="col-6 justify-content-center" id="splash">
+                <h2>Display the past searches</h2>
+                <button class='switch-page-btn' data-page='landing-page' type="button" name="button">Return Home</button>
+
+            </div>
+            <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><img src="assets/images/stock7.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock8.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock9.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock10.jpg" alt=""></div>
+        </div>
+
+    </div>
+    <script src='./assets/javascript/app.js' type="text/javascript">
+
+    </script>
+</body>
+</html>
