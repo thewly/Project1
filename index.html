@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NEXT JRNY | Make getting there half the fun</title>
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
+        authDomain: "smu-group-project-one.firebaseapp.com",
+        databaseURL: "https://smu-group-project-one.firebaseio.com",
+        projectId: "smu-group-project-one",
+        storageBucket: "smu-group-project-one.appspot.com",
+        messagingSenderId: "948311193030"
+      };
+      firebase.initializeApp(config);
+    </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -18,6 +33,9 @@
     <div class="container" id="navigator">
         <nav class="navbar">
             <a class="navbar-brand">NEXT JRNY</a>
+            <span id='login-info'>
+              <button id='google-login-btn'>Log In</button>
+            </span>
         </nav>
     </div>
 
@@ -70,7 +88,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -93,17 +111,9 @@
     </div>
 
     <div class="container hidden-element" id="destinationPage">
-        
-    </div>
 
-    <script>
-        $(document).on('click', '.switch-element-btn', function(){
-            var showPage = $(this).data('show');
-            var hidePage = $(this).data('hide');
-            $(`#${hidePage}`).addClass('hidden-element');
-            $(`#${showPage}`).removeClass('hidden-element');
-        })
-    </script>
+    </div>
+    <script src='./assets/javascript/app.js'></script>
 
 </body>
 </html>
