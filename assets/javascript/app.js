@@ -16,14 +16,13 @@ $('#submit-btn').on('click', function(){
   var endLocation = $('#destinationInput').val()
   var date = $('#departureInput').val()
 
-  console.log('submitting data...')
-  console.log(name, startLocation, endLocation, date)
   database.ref('/searches').push({
     name: name,
     startLoc: startLocation,
     endLoc: endLocation,
     date: date,
   })
+  updateTable()
 })
 
 // Testing Google Auth
