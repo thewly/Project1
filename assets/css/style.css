@@ -18,7 +18,11 @@ h2 {
     font-size: 1.9em;
     text-align: center;
     margin-bottom: 1rem;
-    margin-top: -.5rem;
+    margin-top: -1rem;
+}
+
+.hidden-element {
+    display: none;
 }
 
 /* NEXT PHASE: FADE OUT PAGES

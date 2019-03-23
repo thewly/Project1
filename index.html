@@ -21,9 +21,11 @@
         </nav>
     </div>
 
-    <div class="container" id="cushion"></div>
+    <div class="container" id="landingPage">
+        <button >
+    </div>
 
-    <div class="container" id="firstPage">
+    <div class="container hidden-element" id="searchPage">
         <div class="row">
             <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
             <div class="col-3"><img src="assets/images/stock2.jpg" alt=""></div>
@@ -34,7 +36,9 @@
             <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
             <div class="col-6">
                 <div class="splash d-flex">
-                    <div class="container align-self-center">
+
+                    <!-- DESTINATION DETAILS -->
+                    <div class="container align-self-center" id="tripPage">
                         <h2>Where's the NEXT JRNY?</h2>
                         <form>
                             <div class="form-group">
@@ -46,11 +50,31 @@
                                     <input type="text" class="form-control" id="departureInput" placeholder="Depart">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary" id="searchBtn"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-page-btn" data-page="originPage"><i class="far fa-map"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
+
+                    <!-- ORIGIN DETAILS -->
+                    <div class="container align-self-center hidden-element" id="originPage">
+                        <h2>Where does it BEGIN?</h2>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="originInput" placeholder="Enter starting origin">
+                            </div>
+                            <div class="form-row">
+                                <div class="col-auto">
+                                    <input type="text" class="form-control" id="nameInput" placeholder="Your name">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary switch-page-btn" data-page="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
             <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
@@ -63,14 +87,20 @@
         </div>
     </div>
 
-    <div class="container" id="secondPage">
+    <div class="container hidden-element" id="selectionPage">
 
     </div>
 
+    <div class="container hidden-element" id="destinationPage">
+        
+    </div>
+
     <script>
-        $("#searchBtn").on("click", function() {
-            event.preventDefault();
-            $("#firstPage").attr("style", "display:none;");
+        $(document).on('click', '.switch-page-btn', function(){
+            var newPage = $(this).data('page');
+            $(`#${currentPage}-container`).addClass('hidden-element');
+            $(`#${newPage}-container`).css('display', 'block');
+            currentPage = newPage;
         })
     </script>
 
