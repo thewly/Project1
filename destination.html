@@ -18,7 +18,7 @@
             background-color: blue;
         } */
         .dat-background-tho {
-            background-image: url("assets/images/bg.jpg");
+            /* background-image: url("assets/images/bg.jpg"); */
             background-repeat: repeat;
             background-color: darkgrey;
             height: 3rem;
@@ -46,12 +46,12 @@
                 <div class="card breathing-room">
                     <div class="card-body">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item"
-                                src="https://www.youtube.com/embed/KaqC5FnvAEc?autoplay=1" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44" allowfullscreen></iframe>
                         </div>
+
                         </br>
                         <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar" style="width: 50%" aria-valuenow="50"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         </br>
@@ -82,8 +82,27 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
-        <script src="assets/javascript/app.js"></script>
-    </div>
+        <script>
+
+            var a = moment([2018, 0, 29]);
+            var b = moment([2022, 0, 28]);
+            var differenceTotal = a.diff(b, 'days');   // =1
+            console.log("total days between start & end " + differenceTotal);
+
+            var today = moment();
+            var differenceToday = a.diff(today, 'days');
+            console.log("days since start " + differenceToday);
+
+           
+            var decreaseValue = differenceTotal - differenceToday;
+
+            var percentage = (decreaseValue / differenceTotal) * 100;
+
+            cleanPercentage = Math.round(percentage);
+
+            $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+
+        </script>
 </body>
 
 </html>
