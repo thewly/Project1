@@ -22,8 +22,8 @@
     </div>
 
     <div class="container" id="landingPage">
-        <button type="button" class="btn btn-primary switch-page-btn" data-page="searchPage">Make my own</button>
-        <button type="button" class="btn btn-primary switch-page-btn" data-page="selectionPage">Follow in footsteps</button>
+        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="searchPage">Make my own</button>
+        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="selectionPage">Follow in footsteps</button>
     </div>
 
     <div class="container hidden-element" id="searchPage">
@@ -51,7 +51,7 @@
                                     <input type="text" class="form-control" id="departureInput" placeholder="Depart">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary switch-page-btn" data-current="tripPage" data-page="originPage"><i class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-page-btn" data-current="searchPage" data-page="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -97,18 +97,12 @@
     </div>
 
     <script>
-        var currentPage = "landingPage";
-
-        $(document).on('click', '.switch-page-btn', function(){
-            var newPage = $(this).data('page');
-
-            if ($(this).data('current')) { currentPage = $(this).data('current') };
-
-            $(`#${currentPage}`).addClass('hidden-element');
-            $(`#${newPage}`).removeClass('hidden-element');
-            currentPage = newPage;
+        $(document).on('click', '.switch-element-btn', function(){
+            var showPage = $(this).data('show');
+            var hidePage = $(this).data('hide');
+            $(`#${hidePage}`).addClass('hidden-element');
+            $(`#${showPage}`).removeClass('hidden-element');
         })
-
     </script>
 
 </body>
