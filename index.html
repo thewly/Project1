@@ -22,7 +22,8 @@
     </div>
 
     <div class="container" id="landingPage">
-        <button >
+        <button type="button" class="btn btn-primary switch-page-btn" data-page="searchPage">Make my own</button>
+        <button type="button" class="btn btn-primary switch-page-btn" data-page="selectionPage">Follow in footsteps</button>
     </div>
 
     <div class="container hidden-element" id="searchPage">
@@ -42,7 +43,7 @@
                         <h2>Where's the NEXT JRNY?</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="destinationInput" placeholder="Enter Destination">
+                                <input type="text" class="form-control form-control-lg" id="destinationInput" placeholder="Enter destination">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
@@ -50,7 +51,7 @@
                                     <input type="text" class="form-control" id="departureInput" placeholder="Depart">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary switch-page-btn" data-page="originPage"><i class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary switch-page-btn" data-current="tripPage" data-page="originPage"><i class="far fa-map"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -58,7 +59,7 @@
 
                     <!-- ORIGIN DETAILS -->
                     <div class="container align-self-center hidden-element" id="originPage">
-                        <h2>Where does it BEGIN?</h2>
+                        <h2>And where does it BEGIN?</h2>
                         <form>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" id="originInput" placeholder="Enter starting origin">
@@ -69,7 +70,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-page-btn" data-page="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-page-btn" data-current="searchPage" data-page="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -96,12 +97,18 @@
     </div>
 
     <script>
+        var currentPage = "landingPage";
+
         $(document).on('click', '.switch-page-btn', function(){
             var newPage = $(this).data('page');
-            $(`#${currentPage}-container`).addClass('hidden-element');
-            $(`#${newPage}-container`).css('display', 'block');
+
+            if ($(this).data('current')) { currentPage = $(this).data('current') };
+
+            $(`#${currentPage}`).addClass('hidden-element');
+            $(`#${newPage}`).removeClass('hidden-element');
             currentPage = newPage;
         })
+
     </script>
 
 </body>
