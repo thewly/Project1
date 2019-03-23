@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
@@ -24,8 +25,10 @@
       };
       firebase.initializeApp(config);
     </script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -39,8 +42,8 @@
         </nav>
     </div>
 
-    <div class="container" id="landingPage">
-        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="searchPage">Make my own</button>
+    <div class="container text-center" id="landingPage">
+        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="searchPage">Forge my path</button>
         <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="selectionPage">Follow in footsteps</button>
     </div>
 
@@ -66,7 +69,7 @@
                             <div class="form-row">
                                 <div class="col-auto">
                                     <!-- NEXT PHASE: Turn into Datepicker input -->
-                                    <input type="text" class="form-control" id="departureInput" placeholder="Depart">
+                                    <input type="text" class="form-control" id="departDateInput" placeholder="Departure date">
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
@@ -107,13 +110,113 @@
     </div>
 
     <div class="container hidden-element" id="selectionPage">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card breathing-room">
+                    <div class="card-body">
+                        <h4 class="text-center">My Trips</h4>
 
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Destnation</th>
+                                    <th scope="col">Departure Date</th>
+                                    <th scope="col">Button</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTrips"></tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="card breathing-room">
+                    <div class="card-body">
+                        <h4 class="text-center">Our Trips</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Destnation</th>
+                                    <th scope="col">Departure Date</th>
+                                    <th scope="col">Button</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ourTrips"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>   
     </div>
 
     <div class="container hidden-element" id="destinationPage">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card breathing-room">
+                    <div class="card-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44" allowfullscreen></iframe>
+                        </div>
 
+                        </br>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar" style="width: 50%" aria-valuenow="50"
+                                aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        </br>
+                        <div class="row" style="color:black;">
+                            <div class="col-md-4">
+                                <h4>Here's your form information:</h4>
+                                <p id="travelerName">Name: Tiny Tim</p>
+                                <p id="destination">Destination: Tuscany, Italy</p>
+                                <p id="departureDate">You're leaving on: Dec 31st, 2019</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Here's your progress:</h4>
+                                <p>You planned your trip on: July 4th, 2019</p>
+                                <p>You're leaving on: Dec 31st, 2019</p>
+                                <p>You are: 25% of the way there!</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Micro Goals:</h4>
+                                <p>Each day I need to be saving: $4,000</p>
+                                <p>So far I've saved: $644,000</p>
+                                <p>You only have this much left to save: $1,000,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src='./assets/javascript/app.js'></script>
+
+    <script>
+        $(document).on('click', '.switch-element-btn', function(){
+            var showPage = $(this).data('show');
+            var hidePage = $(this).data('hide');
+            $(`#${hidePage}`).addClass('hidden-element');
+            $(`#${showPage}`).removeClass('hidden-element');
+        })
+    </script>
+
+    <script>
+        var a = moment([2018, 0, 29]);
+        var b = moment([2022, 0, 28]);
+        var differenceTotal = a.diff(b, 'days');   // =1
+        var today = moment();
+        var differenceToday = a.diff(today, 'days');
+        var decreaseValue = differenceTotal - differenceToday;
+        var percentage = (decreaseValue / differenceTotal) * 100;
+        cleanPercentage = Math.round(percentage);
+
+        $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+    </script>
 
 </body>
 </html>
