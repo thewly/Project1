@@ -2,6 +2,19 @@ var database = firebase.database()
 var provider = new firebase.auth.GoogleAuthProvider();
 
 var connectID = ''
+var userLoggedIn = false
+
+function updateTable(){
+  database.ref().once('value', function(snap){
+    if(userLoggedIn){
+      var username = snap.val().connections[connectID].user
+      var userSearches = snap.val().users[username].searches
+      console.log(userSearches)
+      $('#myTrips').append()
+    }
+    $('#ourTrips').append()
+  })
+}
 
 $(document).on('click', '.switch-element-btn', function(){
   var hideElement = $(this).data('hide')
@@ -11,17 +24,39 @@ $(document).on('click', '.switch-element-btn', function(){
 })
 
 $('#submit-btn').on('click', function(){
+  var date = new Date()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var year = date.getFullYear()
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
-  var date = $('#departureInput').val()
+  var date = $('#departDateInput').val()
 
-  database.ref('/searches').push({
-    name: name,
-    startLoc: startLocation,
-    endLoc: endLocation,
-    date: date,
+  database.ref().once('value', function(snap){
+    var username = snap.val().connections[connectID].user
+    var searchesArr = snap.val().searches.filter(Boolean)
+    if(userLoggedIn){
+      var userSearchesArr = snap.val().users[username].searches.filter(Boolean)
+      userSearchesArr.push({
+        name: name,
+        plannedOn: `${month}/${day}/${year}`,
+        startLoc: startLocation,
+        endLoc: endLocation,
+        leaveDate: date,
+      })
+      database.ref(`/users/${username}/searches`).set(userSearchesArr)
+    }
+    searchesArr.push({
+      name: name,
+      plannedOn: `${month}/${day}/${year}`,
+      startLoc: startLocation,
+      endLoc: endLocation,
+      date: date,
+    })
+    database.ref('/searches').set(searchesArr)
   })
+
   updateTable()
 })
 
@@ -51,9 +86,13 @@ $('#google-login-btn').on('click', function(){
             searches: '',
           }
         })
-      } else {
-        connectID = snap.val()[username].id
       }
+      database.ref('/connections').update({
+        [connectID]: {
+          user: username,
+        }
+      })
+      userLoggedIn = true;
     })
 
   }).catch(function(error) {
