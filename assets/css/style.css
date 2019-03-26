@@ -7,6 +7,7 @@ body {
 .navbar {
     margin: 0 10px 10px;
     background-color: #092168;
+    font-size: 1.5rem;
 }
 
 .navbar-brand {
@@ -17,9 +18,10 @@ body {
     background-color: #092168;
 }
 
-.home-btn {
-    background-color: #C58700;
-    float: left;
+.home-btn, #google-login-btn {
+    color: #C58700;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
 h2 {

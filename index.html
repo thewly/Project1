@@ -34,23 +34,15 @@
 
 <body>
     <div class="container" id="navigator">
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand">NEXT JRNY</a>
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">
-                    <i class="fas fa-home"></i>
-                    <i class="fas fa-key"></i>
-                    <i class="fas fa-user"></i>
-                    <i class="far fa-user"></i>
-                    <i class="far fa-user"></i>
-                    <i class="far fa-user"></i>
-                    <i class="far fa-user"></i>
-                </a>
-                <!-- <button type="button" class="btn btn-primary home-btn"><i class="fas fa-home"></i></button> -->
-              </div>
-            <span id='login-info'>
-              <button id='google-login-btn'><i class="fas fa-key"></i></button>
-            </span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
+                <span class="ml-auto" id='login-info'><i class="fas fa-key" id='google-login-btn'></i></span>
+            </div>
         </nav>
     </div>
 
@@ -80,8 +72,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <!-- NEXT PHASE: Turn into Datepicker input -->
-                                    <input type="text" class="form-control" id="departDateInput" placeholder="Departure date">
+                                    <input type="date" class="form-control" id="departDateInput">
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
@@ -103,7 +94,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
