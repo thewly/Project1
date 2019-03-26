@@ -34,11 +34,15 @@
 
 <body>
     <div class="container" id="navigator">
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand">NEXT JRNY</a>
-            <span id='login-info'>
-              <button id='google-login-btn'>Log In</button>
-            </span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
+                <span class="ml-auto" id='login-info'><i class="fas fa-key" id='google-login-btn'></i></span>
+            </div>
         </nav>
     </div>
 
@@ -68,8 +72,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <!-- NEXT PHASE: Turn into Datepicker input -->
-                                    <input type="text" class="form-control" id="departDateInput" placeholder="Departure date">
+                                    <input type="date" class="form-control" id="departDateInput">
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
@@ -203,6 +206,16 @@
             $(`#${hidePage}`).addClass('hidden-element');
             $(`#${showPage}`).removeClass('hidden-element');
         })
+
+        $(document).on('click', '.home-btn', function(){
+            $("#searchPage").addClass('hidden-element');
+            $("#originPage").addClass('hidden-element');
+            $("#tripPage").removeClass('hidden-element');
+            $("#selectionPage").addClass('hidden-element');
+            $("#destinationPage").addClass('hidden-element');
+            $("#landingPage").removeClass('hidden-element');
+        })
+
     </script>
 
     <script>
