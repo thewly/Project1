@@ -13,6 +13,15 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
+.btn {
+    background-color: #092168;
+}
+
+.home-btn {
+    background-color: #C58700;
+    float: left;
+}
+
 h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.9em;
@@ -33,7 +42,6 @@ h2 {
 } */
 
 /* GENERAL */
-
 .row {
     margin: 0;
 }
@@ -46,10 +54,6 @@ img {
     width: 100%;
     height: 250px;
     object-fit: cover;
-}
-
-.btn {
-    background-color: #092168;
 }
 
 /* SPLASH */

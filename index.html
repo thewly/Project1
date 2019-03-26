@@ -36,8 +36,20 @@
     <div class="container" id="navigator">
         <nav class="navbar">
             <a class="navbar-brand">NEXT JRNY</a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">
+                    <i class="fas fa-home"></i>
+                    <i class="fas fa-key"></i>
+                    <i class="fas fa-user"></i>
+                    <i class="far fa-user"></i>
+                    <i class="far fa-user"></i>
+                    <i class="far fa-user"></i>
+                    <i class="far fa-user"></i>
+                </a>
+                <!-- <button type="button" class="btn btn-primary home-btn"><i class="fas fa-home"></i></button> -->
+              </div>
             <span id='login-info'>
-              <button id='google-login-btn'>Log In</button>
+              <button id='google-login-btn'><i class="fas fa-key"></i></button>
             </span>
         </nav>
     </div>
@@ -91,7 +103,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -203,6 +215,16 @@
             $(`#${hidePage}`).addClass('hidden-element');
             $(`#${showPage}`).removeClass('hidden-element');
         })
+
+        $(document).on('click', '.home-btn', function(){
+            $("#searchPage").addClass('hidden-element');
+            $("#originPage").addClass('hidden-element');
+            $("#tripPage").removeClass('hidden-element');
+            $("#selectionPage").addClass('hidden-element');
+            $("#destinationPage").addClass('hidden-element');
+            $("#landingPage").removeClass('hidden-element');
+        })
+
     </script>
 
     <script>
