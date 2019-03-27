@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NEXT JRNY | Make getting there half the fun</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
@@ -14,20 +16,21 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
     <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
-        authDomain: "smu-group-project-one.firebaseapp.com",
-        databaseURL: "https://smu-group-project-one.firebaseio.com",
-        projectId: "smu-group-project-one",
-        storageBucket: "smu-group-project-one.appspot.com",
-        messagingSenderId: "948311193030"
-      };
-      firebase.initializeApp(config);
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
+            authDomain: "smu-group-project-one.firebaseapp.com",
+            databaseURL: "https://smu-group-project-one.firebaseio.com",
+            projectId: "smu-group-project-one",
+            storageBucket: "smu-group-project-one.appspot.com",
+            messagingSenderId: "948311193030"
+        };
+        firebase.initializeApp(config);
     </script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css"
+        integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -36,7 +39,8 @@
     <div class="container" id="navigator">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand">NEXT JRNY</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -47,8 +51,10 @@
     </div>
 
     <div class="container text-center" id="landingPage">
-        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage" data-show="searchPage">Forge my path</button>
-        <button type="button" class="btn btn-primary switch-element-btn" id="showSelectionPage" data-hide="landingPage" data-show="selectionPage">Follow in footsteps</button>
+        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage"
+            data-show="searchPage">Forge my path</button>
+        <button type="button" class="btn btn-primary switch-element-btn" id="showSelectionPage" data-hide="landingPage"
+            data-show="selectionPage">Follow in footsteps</button>
     </div>
 
     <div class="container hidden-element" id="searchPage">
@@ -68,14 +74,16 @@
                         <h2>Where's the NEXT JRNY?</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="destinationInput" placeholder="Enter destination">
+                                <input type="text" class="form-control form-control-lg" id="destinationInput"
+                                    placeholder="Enter destination">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
                                     <input type="date" class="form-control" id="departDateInput">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn"
+                                        data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -86,15 +94,19 @@
                         <h2>And where does it BEGIN?</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="originInput" placeholder="Enter starting origin">
+                                <input type="text" class="form-control form-control-lg" id="originInput"
+                                    placeholder="Enter starting origin">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
                                     <input type="text" class="form-control" id="nameInput" placeholder="Your name">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary" disabled><i class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary" disabled><i
+                                            class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn'
+                                        data-hide="searchPage" data-show="destinationPage"><i
+                                            class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -159,13 +171,14 @@
                 <div class="card breathing-room">
                     <div class="card-body">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44"
+                                allowfullscreen></iframe>
                         </div>
 
                         </br>
                         <div class="progress">
-                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar"
+                                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                         </br>
@@ -200,14 +213,14 @@
     <script src='./assets/javascript/app.js'></script>
 
     <script>
-        $(document).on('click', '.switch-element-btn', function(){
+        $(document).on('click', '.switch-element-btn', function () {
             var showPage = $(this).data('show');
             var hidePage = $(this).data('hide');
             $(`#${hidePage}`).addClass('hidden-element');
             $(`#${showPage}`).removeClass('hidden-element');
         })
 
-        $(document).on('click', '.home-btn', function(){
+        $(document).on('click', '.home-btn', function () {
             $("#searchPage").addClass('hidden-element');
             $("#originPage").addClass('hidden-element');
             $("#tripPage").removeClass('hidden-element');
@@ -232,4 +245,5 @@
     </script>
 
 </body>
+
 </html>

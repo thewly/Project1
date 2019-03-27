@@ -7,6 +7,12 @@ var userLoggedIn = false
 var testAPIMode = false
 var cheapestPriceTotal = 100;
 
+// added blank variables to limit errors since these hadn't been defined yet since previously they were only defined in a click function
+var name = "";
+var endLocation = "";
+var departdate = "";
+
+
 function updateTable(){
   console.log('testing update table')
   $('#myTrips').empty()
@@ -45,6 +51,9 @@ function updateTable(){
   })
 }
 
+
+
+
 $(document).on('click', '.switch-element-btn', function(){
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
@@ -60,15 +69,15 @@ $('#submit-btn').on('click', function(){
   var month = today.getMonth() + 1
   var day = today.getDate()
   var year = today.getFullYear()
-  var name = $('#nameInput').val()
+  name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
-  var endLocation = $('#destinationInput').val()
-  var departdate = $('#departDateInput').val()
-
-  var traveler = $("#namInput").val().trim();
+  endLocation = $('#destinationInput').val()
+  departdate = $('#departDateInput').val()
+  
+  var traveler = $("#nameInput").val().trim();
   $("#travelerName").text("Name: " + traveler);
   // 2019-04-01
-
+  
   //This pulls today's date
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
@@ -77,22 +86,22 @@ $('#submit-btn').on('click', function(){
   var fakeToday = new Date("2019-01-09");
   var fakeTime = fakeToday.getTime();
   console.log("date of booking: " + fakeTime);
-
+  
   // This is pulling the depart date input
   var date1 = new Date($("#departDateInput").val()).getTime();
   console.log("departure: " + date1);
-
+  
   // days from when you booked until now
   var totalDaysLeft = Math.floor((date1 - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
-
+  
   // days between that fake start day & current time
   var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
   console.log("Total goal length: " + howManyHasItBeen);
   
   // total trip days
   var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
-
+  
   // this get the percentage of the trip that's done
   var progressBar = howManyHasItBeen / totalTripDays * 100;
   var cleanPercentage = Math.round(progressBar);
@@ -100,18 +109,18 @@ $('#submit-btn').on('click', function(){
   
   // this pushes that percentage to the progress bar, finall
   $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-
-
-
-
-
+  
+  
+  
+  
+  
   if(testAPIMode){
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
-      <div class="fa-3x">
-        <i class="fas fa-spinner fa-spin"></i>
-      </div>
+    <div class="fa-3x">
+    <i class="fas fa-spinner fa-spin"></i>
+    </div>
     `)
     $.ajax({
       url: queryURL,
@@ -122,7 +131,7 @@ $('#submit-btn').on('click', function(){
       $("#output").text(response.cheapestPriceTotal);
     });
   }
-
+  
   database.ref().once('value', function(snap){
     var username = snap.val().connections[connectID].user
     var searchesArr = snap.val().searches.filter(Boolean)
@@ -146,8 +155,15 @@ $('#submit-btn').on('click', function(){
     })
     database.ref('/searches').set(searchesArr)
   })
-
+  
   updateTable()
+})
+
+// I'm trying to add the function so that when you add a child to the table, it will add information to the final page
+database.ref().on('child_added', function(){
+  $(`#travelerName`).text("Name: " + name);
+  // the line below won't populate to the landing page, but the line above will
+  $(`#destination`).text("Destination: " + $('#destinationInput').val());
 })
 
 // Testing Google Auth
