@@ -61,7 +61,7 @@
                                 <h4>Here's your form information:</h4>
                                 <p id="travelerName">Name: Tiny Tim</p>
                                 <p id="destination">Destination: Tuscany, Italy</p>
-                                <p id="departureDatePosted">You're leaving on: Dec 31st, 2019</p>
+                                <p id="departDateInputPosted">You're leaving on: Dec 31st, 2019</p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Here's your progress:</h4>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="emailInput">Departure Date</label>
-                                    <input type="text" class="form-control" id="departureDate"
+                                    <input type="text" class="form-control" id="departDateInput"
                                         aria-describedby="emailHelp" placeholder="08/08/19">
                                 </div>
                                 <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
@@ -148,47 +148,57 @@
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
         <script>
-
-            var a = moment([2018, 0, 29]);
-            var b = moment([2022, 0, 28]);
-            var differenceTotal = a.diff(b, 'days');   // =1
-            console.log("total days between start & end " + differenceTotal);
-
-            var today = moment();
-            var differenceToday = a.diff(today, 'days');
-            console.log(differenceToday);
-
-
-            var decreaseValue = differenceTotal - differenceToday;
-            var percentage = (decreaseValue / differenceTotal) * 100;
-            cleanPercentage = Math.round(percentage);
-
-            $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-
+            
             $("#submitButton").on("click", function () {
-
+                
                 event.preventDefault();
-            
-            var rightNow = moment().valueOf()
-            console.log("date of booking: " + rightNow);
-            
-            console.log($("#departureDate").val().trim())
-            var date1 = new Date($("#departureDate").val()).getTime();
-            console.log("departure: " + date1);
+                
+                //This pulls today's date
+                var rightNow = moment().valueOf()
+                console.log("date of booking: " + rightNow);
+                
+                // This is a simulated "start" date so I can test percentages or progress
+                var fakeToday = new Date("2019-01-09");
+                var fakeTime = fakeToday.getTime();
+                console.log("date of booking: " + fakeTime);
 
-            var daysLeft = Math.floor((date1 - rightNow) / 86400000);
-            console.log("days between when you started until now: " + daysLeft);
+                // This is pulling the depart date input
+                var date1 = new Date($("#departDateInput").val()).getTime();
+                console.log("departure: " + date1);
+
+                // days from when you booked until now
+                var totalDaysLeft = Math.floor((date1 - rightNow) / 86400000);
+                console.log("days between when you started until now: " + totalDaysLeft);
+
+                // days between that fake start day & current time
+                var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
+                console.log("Total goal length: " + howManyHasItBeen);
+                
+                // total trip days
+                var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
+
+                // this get the percentage of the trip that's done
+                var progressBar = howManyHasItBeen / totalTripDays * 100;
+                var cleanPercentage = Math.round(progressBar);
+                console.log("To what percent am I done: " + cleanPercentage);
+                
+                // this pushes that percentage to the progress bar, finall
+                $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+                
+
+
+
 
                 var originLocal = $("#origin").val().trim();
                 var destinationLocal = $("#destination").val().trim();
-                var departureDate = $("#departureDate").val().trim();
+                var departDateInput = $("#departDateInput").val().trim();
 
                 console.log("from: " + originLocal);
                 console.log("to: " + destinationLocal);
-                console.log("when: " + departureDate);
+                console.log("when: " + departDateInput);
 
 
-                var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + originLocal + "&destination1=" + destinationLocal + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
+                var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + originLocal + "&destination1=" + destinationLocal + "&departdate1=" + departDateInput + "&cabin=e&currency=USD&adults=1&bags=0";
                 // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
 
                 $("#output").append(`

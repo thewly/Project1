@@ -34,11 +34,15 @@
 
 <body>
     <div class="container" id="navigator">
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand">NEXT JRNY</a>
-            <span id='login-info'>
-              <button id='google-login-btn'>Log In</button>
-            </span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
+                <span class="ml-auto" id='login-info'><i class="fas fa-key" id='google-login-btn'></i></span>
+            </div>
         </nav>
     </div>
 
@@ -68,8 +72,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <!-- NEXT PHASE: Turn into Datepicker input -->
-                                    <input type="text" class="form-control" id="departDateInput" placeholder="Departure date">
+                                    <input type="date" class="form-control" id="departDateInput">
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary switch-element-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
@@ -195,5 +198,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src='./assets/javascript/app.js'></script>
+
+    <script>
+        var a = moment([2018, 0, 29]);
+        var b = moment([2022, 0, 28]);
+        var differenceTotal = a.diff(b, 'days');   // =1
+        var today = moment();
+        var differenceToday = a.diff(today, 'days');
+        var decreaseValue = differenceTotal - differenceToday;
+        var percentage = (decreaseValue / differenceTotal) * 100;
+        cleanPercentage = Math.round(percentage);
+
+        $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+    </script>
+
 </body>
 </html>
