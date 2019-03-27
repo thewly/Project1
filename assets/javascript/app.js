@@ -7,7 +7,6 @@ var userLoggedIn = false
 var testAPIMode = false
 
 function updateTable(){
-  console.log('testing update table')
   $('#myTrips').empty()
   $('#ourTrips').empty()
   database.ref().once('value', function(snap){
@@ -17,13 +16,13 @@ function updateTable(){
       var userSearches = snap.val().users[username].searches
       console.log(userSearches)
       if(userSearches.length > 0){
-        userSearches.forEach(function(search){
+        userSearches.forEach(function(search, index){
           $('#myTrips').append(`
             <tr>
             <th scope="col">${search.name}</th>
             <th scope="col">${search.endLoc}</th>
             <th scope="col">${search.leaveDate}</th>
-            <th scope="col">Button</th>
+            <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${index}" data-user="true">Button</button></th>
             </tr>
             `)
           })
@@ -31,19 +30,45 @@ function updateTable(){
     } else {
       $('#myTripsTable').addClass('hidden-element')
     }
-    snap.val().searches.forEach(function(search){
+    snap.val().searches.forEach(function(search, index){
       $('#ourTrips').append(`
         <tr>
         <th scope="col">${search.name}</th>
         <th scope="col">${search.endLoc}</th>
         <th scope="col">${search.leaveDate}</th>
-        <th scope="col">Button</th>
+        <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${index}" data-user="false">Button</button></th>
         </tr>
         `)
     })
   })
 }
 
+function loadSpecificSearch(index, user){
+  if(user){
+    database.ref().once('value', function(snap){
+      searchObj = snap.val().searches[index]
+      console.log(searchObj)
+    })
+  } else {
+    database.ref().once('value', function(snap){
+      searchObj = snap.val().searches[index]
+      console.log(searchObj)
+      $('.travelerName').text(searchObj.name)
+      $('.destinationName').text(searchObj.endLoc)
+      $('.departureDate').text(searchObj.leaveDate)
+      $('.plannedOnDate').text(searchObj.plannedOn)
+      $('.percentToLeave').text("24%")
+      $('.amountToSave').text("$2,000")
+      $('.amountCurrentlySaved').text("$642,000")
+      $('.amountLeftToSave').text("$1,000,002")
+    })
+  }
+
+}
+
+$(document).on('click', "#loadSearchPage", function(){
+  loadSpecificSearch($(this).data('search'), $(this).data('user'))
+})
 $(document).on('click', '.switch-element-btn', function(){
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
