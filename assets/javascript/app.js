@@ -16,38 +16,53 @@ function updateTable(){
       var userSearches = snap.val().users[username].searches
       console.log(userSearches)
       if(userSearches.length > 0){
-        userSearches.forEach(function(search, index){
+        var amountToShow = userSearches.length > 10 ? 10 : userSearches.length
+        for(i=0;i<amountToShow;i++){
           $('#myTrips').append(`
             <tr>
-            <th scope="col">${search.name}</th>
-            <th scope="col">${search.endLoc}</th>
-            <th scope="col">${search.leaveDate}</th>
-            <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${index}" data-user="true">Button</button></th>
+            <th scope="col">${userSearches[userSearches.length - 1 - i].name}</th>
+            <th scope="col">${userSearches[userSearches.length - 1 - i].endLoc}</th>
+            <th scope="col">${userSearches[userSearches.length - 1 - i].leaveDate}</th>
+            <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${userSearches.length - 1 - i}" data-user="true">Button</button></th>
             </tr>
-            `)
-          })
+          `)
+        }
       }
     } else {
       $('#myTripsTable').addClass('hidden-element')
     }
-    snap.val().searches.forEach(function(search, index){
-      $('#ourTrips').append(`
-        <tr>
-        <th scope="col">${search.name}</th>
-        <th scope="col">${search.endLoc}</th>
-        <th scope="col">${search.leaveDate}</th>
-        <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${index}" data-user="false">Button</button></th>
-        </tr>
+    var searches = snap.val().searches
+    if(searches.length > 0){
+      var amountToShow = searches.length > 10 ? 10 : searches.length
+      console.log(amountToShow)
+      console.log(searches)
+      for(i=0;i<amountToShow;i++){
+        $('#ourTrips').append(`
+          <tr>
+          <th scope="col">${searches[searches.length - 1 - i].name}</th>
+          <th scope="col">${searches[searches.length - 1 - i].endLoc}</th>
+          <th scope="col">${searches[searches.length - 1 - i].leaveDate}</th>
+          <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${searches.length - 1 - i}" data-user="false">Button</button></th>
+          </tr>
         `)
-    })
+      }
+    }
   })
 }
 
 function loadSpecificSearch(index, user){
   if(user){
     database.ref().once('value', function(snap){
-      searchObj = snap.val().searches[index]
+      searchObj = snap.val().users[snap.val().connections[connectID].user].searches[index]
       console.log(searchObj)
+      $('.travelerName').text(searchObj.name)
+      $('.destinationName').text(searchObj.endLoc)
+      $('.departureDate').text(searchObj.leaveDate)
+      $('.plannedOnDate').text(searchObj.plannedOn)
+      $('.percentToLeave').text("24%")
+      $('.amountToSave').text("$2,000")
+      $('.amountCurrentlySaved').text("$642,000")
+      $('.amountLeftToSave').text("$1,000,002")
     })
   } else {
     database.ref().once('value', function(snap){
@@ -91,15 +106,15 @@ $('#submit-btn').on('click', function(){
   // 2019-04-01
 
   //Cole Unix code
-  var rightNow = moment().valueOf()
-  console.log("date of booking: " + rightNow);
-
-  console.log($("#departureDate").val().trim())
-  var date1 = new Date($("#departureDate").val()).getTime();
-  console.log("departure: " + date1);
-
-  var daysLeft = Math.floor((date1 - rightNow) / 86400000);
-  console.log("days between when you started until now: " + daysLeft);
+  // var rightNow = moment().valueOf()
+  // console.log("date of booking: " + rightNow);
+  //
+  // console.log($("#departureDate").val().trim())
+  // var date1 = new Date($("#departureDate").val()).getTime();
+  // console.log("departure: " + date1);
+  //
+  // var daysLeft = Math.floor((date1 - rightNow) / 86400000);
+  // console.log("days between when you started until now: " + daysLeft);
 
   if(testAPIMode){
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
@@ -132,6 +147,7 @@ $('#submit-btn').on('click', function(){
         leaveDate: departdate,
       })
       database.ref(`/users/${username}/searches`).set(userSearchesArr)
+      loadSpecificSearch(userSearchesArr.length-1, username)
     }
     searchesArr.push({
       name: name,
@@ -141,6 +157,7 @@ $('#submit-btn').on('click', function(){
       leaveDate: departdate,
     })
     database.ref('/searches').set(searchesArr)
+    loadSpecificSearch(searchesArr.length-1, false)
   })
 
   updateTable()
