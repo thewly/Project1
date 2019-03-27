@@ -5,6 +5,7 @@ var connectID = ''
 var userLoggedIn = false
 
 var testAPIMode = false
+var cheapestPriceTotal = 100;
 
 function updateTable(){
   console.log('testing update table')
@@ -63,18 +64,46 @@ $('#submit-btn').on('click', function(){
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
   var departdate = $('#departDateInput').val()
+
+  var traveler = $("#namInput").val().trim();
+  $("#travelerName").text("Name: " + traveler);
   // 2019-04-01
 
-  //Cole Unix code
+  //This pulls today's date
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
+  
+  // This is a simulated "start" date so I can test percentages or progress
+  var fakeToday = new Date("2019-01-09");
+  var fakeTime = fakeToday.getTime();
+  console.log("date of booking: " + fakeTime);
 
-  console.log($("#departureDate").val().trim())
-  var date1 = new Date($("#departureDate").val()).getTime();
+  // This is pulling the depart date input
+  var date1 = new Date($("#departDateInput").val()).getTime();
   console.log("departure: " + date1);
 
-  var daysLeft = Math.floor((date1 - rightNow) / 86400000);
-  console.log("days between when you started until now: " + daysLeft);
+  // days from when you booked until now
+  var totalDaysLeft = Math.floor((date1 - rightNow) / 86400000);
+  console.log("days between when you started until now: " + totalDaysLeft);
+
+  // days between that fake start day & current time
+  var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
+  console.log("Total goal length: " + howManyHasItBeen);
+  
+  // total trip days
+  var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
+
+  // this get the percentage of the trip that's done
+  var progressBar = howManyHasItBeen / totalTripDays * 100;
+  var cleanPercentage = Math.round(progressBar);
+  console.log("To what percent am I done: " + cleanPercentage);
+  
+  // this pushes that percentage to the progress bar, finall
+  $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+
+
+
+
 
   if(testAPIMode){
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";

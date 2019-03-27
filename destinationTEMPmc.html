@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Travel Destination</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        /* There were limited styles applied so I left them internal,
+        forgive me */
+
+        /* .doesThisWork {
+            background-color: blue;
+        } */
+        .dat-background-tho {
+            /* background-image: url("assets/images/bg.jpg"); */
+            background-repeat: repeat;
+            background-color: darkgrey;
+            height: 3rem;
+        }
+
+        .breathing-room {
+            margin-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body class="dat-background-tho">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <!-- <h1 class="display-4">Train Scheduler</h1> -->
+            <h2 class="text-center">Here is your travel destination!</h2>
+            <hr class="my-4 text-center">
+            <p class="lead text-center">Work toward your goals, you'll be there before you know it!</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card breathing-room">
+                    <div class="card-body">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44"
+                                allowfullscreen></iframe>
+                        </div>
+
+                        </br>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar"
+                                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>Here's your form information:</h4>
+                                <p id="travelerName">Name: Tiny Tim</p>
+                                <p id="destination">Destination: Tuscany, Italy</p>
+                                <p id="departDateInputPosted">You're leaving on: Dec 31st, 2019</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Here's your progress:</h4>
+                                <p>You planned your trip on: July 4th, 2019</p>
+                                <p>You're leaving on: Dec 31st, 2019</p>
+                                <p>You are: 25% of the way there!</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Micro Goals:</h4>
+                                <p>Each day I need to be saving: $4,000</p>
+                                <p>So far I've saved: $644,000</p>
+                                <p>You only have this much left to save: $1,000,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card breathing-room">
+                        <div class="card-body">
+                            <form>
+                                <h2 class="text-center">Trip Information</h2>
+
+                                <div class="form-group">
+                                    <label for="nameInput">Origin Location</label>
+                                    <input type="text" class="form-control" id="origin" aria-describedby="emailHelp"
+                                        placeholder="DFW">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roleInput">Destination Location</label>
+                                    <input type="text" class="form-control" id="destination"
+                                        aria-describedby="emailHelp" placeholder="PHL">
+                                </div>
+                                <div class="form-group">
+                                    <label for="emailInput">Departure Date</label>
+                                    <input type="text" class="form-control" id="departDateInput"
+                                        aria-describedby="emailHelp" placeholder="08/08/19">
+                                </div>
+                                <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card breathing-room">
+                        <div class="card-body" id="output">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card breathing-room">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <!-- <label for="exampleFormControlTextarea1">Comment</label> -->
+                                <textarea class="form-control" id="commentArea" rows="3"
+                                    placeholder="Name: Your Comment"></textarea>
+                                </br>
+                                <button type="submit" id="commentSubmit" class="btn btn-primary">Submit</button>
+                            </div>
+                            </br>
+
+                            <table>
+                                <thead>
+                                    <h4>What people are saying:</h4>
+                                    <hr>
+                                <tbody class="commentInput">
+
+                                </tbody>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+        <script>
+            
+            $("#submitButton").on("click", function () {
+                
+                event.preventDefault();
+                
+                //This pulls today's date
+                var rightNow = moment().valueOf()
+                console.log("date of booking: " + rightNow);
+                
+                // This is a simulated "start" date so I can test percentages or progress
+                var fakeToday = new Date("2019-01-09");
+                var fakeTime = fakeToday.getTime();
+                console.log("date of booking: " + fakeTime);
+
+                // This is pulling the depart date input
+                var date1 = new Date($("#departDateInput").val()).getTime();
+                console.log("departure: " + date1);
+
+                // days from when you booked until now
+                var totalDaysLeft = Math.floor((date1 - rightNow) / 86400000);
+                console.log("days between when you started until now: " + totalDaysLeft);
+
+                // days between that fake start day & current time
+                var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
+                console.log("Total goal length: " + howManyHasItBeen);
+                
+                // total trip days
+                var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
+
+                // this get the percentage of the trip that's done
+                var progressBar = howManyHasItBeen / totalTripDays * 100;
+                var cleanPercentage = Math.round(progressBar);
+                console.log("To what percent am I done: " + cleanPercentage);
+                
+                // this pushes that percentage to the progress bar, finall
+                $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+                
+
+
+
+
+                var originLocal = $("#origin").val().trim();
+                var destinationLocal = $("#destination").val().trim();
+                var departDateInput = $("#departDateInput").val().trim();
+
+                console.log("from: " + originLocal);
+                console.log("to: " + destinationLocal);
+                console.log("when: " + departDateInput);
+
+
+                var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + originLocal + "&destination1=" + destinationLocal + "&departdate1=" + departDateInput + "&cabin=e&currency=USD&adults=1&bags=0";
+                // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
+
+                $("#output").append(`
+                    <div class="fa-3x">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        <i class="fas fa-sync fa-spin"></i>
+                        <i class="fas fa-cog fa-spin"></i>
+                        <i class="fas fa-spinner fa-pulse"></i>
+                        <i class="fas fa-stroopwafel fa-spin"></i>
+                    </div>
+
+`)
+
+                // $.ajax({
+                //     url: queryURL,
+                //     headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
+                //     method: "GET"
+                // }).then(function (response) {
+                //     console.log(response.cheapestPriceTotal);
+                //     $("#output").text(response.cheapestPriceTotal);
+                // });
+            })
+
+        </script>
+</body>
+
+</html>
