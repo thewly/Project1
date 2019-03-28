@@ -7,44 +7,82 @@ var userLoggedIn = false
 var testAPIMode = false
 var cheapestPriceTotal = 100;
 
+// Pulls search data from the database and hands it off to populateTables() to update page
 function updateTable(){
-  console.log('testing update table')
   $('#myTrips').empty()
   $('#ourTrips').empty()
   database.ref().once('value', function(snap){
     if(userLoggedIn){
       $('#myTripsTable').removeClass('hidden-element')
       var username = snap.val().connections[connectID].user
-      var userSearches = snap.val().users[username].searches
-      console.log(userSearches)
-      if(userSearches.length > 0){
-        userSearches.forEach(function(search){
-          $('#myTrips').append(`
-            <tr>
-            <th scope="col">${search.name}</th>
-            <th scope="col">${search.endLoc}</th>
-            <th scope="col">${search.leaveDate}</th>
-            <th scope="col">Button</th>
-            </tr>
-            `)
-          })
-      }
+      var userSearches = snap.val().users[username].searches.filter(Boolean)
+      populateTables('myTrips', userSearches)
     } else {
       $('#myTripsTable').addClass('hidden-element')
     }
-    snap.val().searches.forEach(function(search){
-      $('#ourTrips').append(`
+    var searches = snap.val().searches.filter(Boolean)
+    populateTables('ourTrips', searches)
+  })
+}
+// Appends search data from database into one of the two tables (based on arguments passed)
+function populateTables(table, data){
+  if(data.length > 0){
+    var amountToShow = data.length > 10 ? 10 : data.length
+    for(i=0;i<amountToShow;i++){
+      $(`#${table}`).append(`
         <tr>
-        <th scope="col">${search.name}</th>
-        <th scope="col">${search.endLoc}</th>
-        <th scope="col">${search.leaveDate}</th>
-        <th scope="col">Button</th>
+        <th scope="col">${data[data.length - 1 - i].name}</th>
+        <th scope="col">${data[data.length - 1 - i].endLoc}</th>
+        <th scope="col">${moment(data[data.length - 1 - i].plannedOn).format("MM/DD/YYYY")}</th>
+        <th scope="col">${moment(data[data.length - 1 - i].leaveDate).format("MM/DD/YYYY")}</th>
+        <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${data.length - 1 - i}" data-user="true">Button</button></th>
         </tr>
-        `)
-    })
+      `)
+    }
+  }
+}
+
+function loadSpecificSearch(index, user){
+  database.ref().once('value', function(snap){
+    var searchObj
+    if(userLoggedIn){
+      searchObj = snap.val().users[snap.val().connections[connectID].user].searches[index]
+    } else {
+      searchObj = snap.val().searches[index]
+    }
+    // Currnet date in UNIX
+    var rightNow = moment().valueOf()
+    // This is pulling the depart date input
+    var plannedOn = searchObj.plannedOn
+    var departDate = searchObj.leaveDate
+    // days from when you booked until now
+    var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
+    // days between that fake start day & current time
+    var howManyHasItBeen = Math.floor((rightNow - plannedOn) / 86400000);
+    // total trip days
+    var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
+    // this get the percentage of the trip that's done
+    var progressBar = howManyHasItBeen / totalTripDays * 100;
+    var cleanPercentage = Math.round(progressBar);
+    console.log("To what percent am I done: " + cleanPercentage);
+    // this pushes that percentage to the progress bar, finall
+    $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+
+    $('.travelerName').text(searchObj.name)
+    $('.startingLocation').text(searchObj.startLoc)
+    $('.destinationName').text(searchObj.endLoc)
+    $('.departureDate').text(moment(searchObj.leaveDate).format("MM/DD/YYYY"))
+    $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
+    $('.percentToLeave').text(`${cleanPercentage}%`)
+    $('.amountToSave').text("$2,000")
+    $('.amountCurrentlySaved').text("$642,000")
+    $('.amountLeftToSave').text("$1,000,002")
   })
 }
 
+$(document).on('click', "#loadSearchPage", function(){
+  loadSpecificSearch($(this).data('search'), $(this).data('user'))
+})
 $(document).on('click', '.switch-element-btn', function(){
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
@@ -54,59 +92,58 @@ $(document).on('click', '.switch-element-btn', function(){
 $('#showSelectionPage').on('click', function(){
   updateTable()
 })
+$(document).on('click', '.home-btn', function(){
+    $("#searchPage").addClass('hidden-element');
+    $("#originPage").addClass('hidden-element');
+    $("#tripPage").removeClass('hidden-element');
+    $("#selectionPage").addClass('hidden-element');
+    $("#destinationPage").addClass('hidden-element');
+    $("#landingPage").removeClass('hidden-element');
+})
 
 $('#submit-btn').on('click', function(){
-  var today = new Date()
-  var month = today.getMonth() + 1
-  var day = today.getDate()
-  var year = today.getFullYear()
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
-  var departdate = $('#departDateInput').val()
 
-  var traveler = $("#namInput").val().trim();
+  var traveler = $("#nameInput").val().trim();
   $("#travelerName").text("Name: " + traveler);
   // 2019-04-01
 
   //This pulls today's date
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
-  
+
   // This is a simulated "start" date so I can test percentages or progress
   var fakeToday = new Date("2019-01-09");
   var fakeTime = fakeToday.getTime();
   console.log("date of booking: " + fakeTime);
 
   // This is pulling the depart date input
-  var date1 = new Date($("#departDateInput").val()).getTime();
-  console.log("departure: " + date1);
+  var departDate = new Date($("#departDateInput").val()).getTime();
+  console.log("departure: " + departDate);
 
   // days from when you booked until now
-  var totalDaysLeft = Math.floor((date1 - rightNow) / 86400000);
+  var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
 
   // days between that fake start day & current time
   var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
   console.log("Total goal length: " + howManyHasItBeen);
-  
+
   // total trip days
-  var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
+  var totalTripDays = Math.floor((departDate - fakeTime) / 86400000);
 
   // this get the percentage of the trip that's done
   var progressBar = howManyHasItBeen / totalTripDays * 100;
   var cleanPercentage = Math.round(progressBar);
   console.log("To what percent am I done: " + cleanPercentage);
-  
+
   // this pushes that percentage to the progress bar, finall
   $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
 
-
-
-
-
   if(testAPIMode){
-    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
+    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departDate + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
       <div class="fa-3x">
@@ -118,33 +155,34 @@ $('#submit-btn').on('click', function(){
       headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
       method: "GET"
     }).then(function (response) {
+      console.log(response)
       console.log(response.cheapestPriceTotal);
       $("#output").text(response.cheapestPriceTotal);
     });
   }
-
+  var searchData = {
+    name: name,
+    plannedOn: rightNow,
+    startLoc: startLocation,
+    endLoc: endLocation,
+    leaveDate: departDate,
+  }
   database.ref().once('value', function(snap){
     var username = snap.val().connections[connectID].user
     var searchesArr = snap.val().searches.filter(Boolean)
-    if(userLoggedIn){
-      var userSearchesArr = snap.val().users[username].searches.filter(Boolean)
-      userSearchesArr.push({
-        name: name,
-        plannedOn: `${month}/${day}/${year}`,
-        startLoc: startLocation,
-        endLoc: endLocation,
-        leaveDate: departdate,
-      })
-      database.ref(`/users/${username}/searches`).set(userSearchesArr)
-    }
-    searchesArr.push({
-      name: name,
-      plannedOn: `${month}/${day}/${year}`,
-      startLoc: startLocation,
-      endLoc: endLocation,
-      leaveDate: departdate,
-    })
+    var userSearchesArr
+
+    searchesArr.push(searchData)
     database.ref('/searches').set(searchesArr)
+
+    if(userLoggedIn){
+      userSearchesArr = snap.val().users[username].searches.filter(Boolean)
+      userSearchesArr.push(searchData)
+      database.ref(`/users/${username}/searches`).set(userSearchesArr)
+      loadSpecificSearch(userSearchesArr.length-1, username)
+    } else {
+      loadSpecificSearch(searchesArr.length-1, false)
+    }
   })
 
   updateTable()
@@ -153,20 +191,15 @@ $('#submit-btn').on('click', function(){
 // Testing Google Auth
 $('#google-login-btn').on('click', function(){
   event.preventDefault()
-  console.log('testing')
   firebase.auth().signInWithPopup(provider).then(function(result) {
-    console.log('inside auth')
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
     var user = result.user;
     var username = user.email.substring(0, user.email.indexOf('@'))
     var userEmail = user.email
-    console.log(username)
     $('#login-info').html(`<p>${username}</p>`)
     database.ref('/users').once('value', function(snap){
-      console.log('testing')
-      console.log(snap.val()[username])
       if(!snap.val()[username]){
         database.ref('/users').update({
           [username]: {
