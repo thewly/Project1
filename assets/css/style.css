@@ -36,6 +36,8 @@ h2 {
     display: none;
 }
 
+/* GRID & IMAGES */
+
 /* NEXT PHASE: FADE OUT PAGES
 .hide {
     visibility: hidden;
@@ -43,7 +45,6 @@ h2 {
     transition: visibility 1s, opacity 1s;
 } */
 
-/* GENERAL */
 .row {
     margin: 0;
 }
@@ -58,10 +59,55 @@ img {
     object-fit: cover;
 }
 
-/* SPLASH */
+/* LANDING PAGE & SEARCH PAGE */
 
 .splash {
     background-color: #03899C;
     height: 250px;
     padding: 20px;
 }
+
+.wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -86px;
+    margin-left: -89px;
+    text-align: center;
+}
+
+a {
+    -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    display: block;
+    margin: 20px auto;
+    max-width: 250px;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 20px 30px;
+    color: #092168;
+}
+
+a.btn-flashy {
+    color: #092168;
+    box-shadow: #092168 0 0px 0px 2px inset;
+    text-decoration: none;
+}
+
+a.btn-flashy:hover {
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: #092168 0 80px 0px 2px inset;
+    text-decoration: none;
+}
+
+
+/* FORMATTING FOR MOBILE */
+@media all and (max-width:30em){
+     a.button1{
+      display:block;
+      margin:0.4em auto;
+     }
+    }
