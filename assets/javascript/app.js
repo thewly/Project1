@@ -4,7 +4,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var connectID = ''
 var userLoggedIn = false
 
-var testAPIMode = false
+var testAPIMode = true
 var cheapestPriceTotal = 100;
 
 // Pulls search data from the database and hands it off to populateTables() to update page
@@ -74,9 +74,10 @@ function loadSpecificSearch(index, user){
     $('.departureDate').text(moment(searchObj.leaveDate).format("MM/DD/YYYY"))
     $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
     $('.percentToLeave').text(`${cleanPercentage}%`)
-    $('.amountToSave').text("$2,000")
-    $('.amountCurrentlySaved').text("$642,000")
-    $('.amountLeftToSave').text("$1,000,002")
+    $('.totalTripCost').text(`$${searchObj.tripPrice ? searchObj.tripPrice : '4,242'}`)
+    $('.amountSavePerDay').text(`$${searchObj.tripPrice * .01}`)
+    $('.amountCurrentlySaved').text(`$${searchObj.tripPrice * (cleanPercentage / 100)}`)
+    $('.amountLeftToSave').text(`$${searchObj.tripPrice * ((100 - cleanPercentage) / 100)}`)
   })
 }
 
@@ -143,7 +144,7 @@ $('#submit-btn').on('click', function(){
   $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
 
   if(testAPIMode){
-    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departDate + "&cabin=e&currency=USD&adults=1&bags=0";
+    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
       <div class="fa-3x">
@@ -157,35 +158,34 @@ $('#submit-btn').on('click', function(){
     }).then(function (response) {
       console.log(response)
       console.log(response.cheapestPriceTotal);
-      $("#output").text(response.cheapestPriceTotal);
+      var price = response.cheapestPriceTotal
+      var searchData = {
+        name: name,
+        plannedOn: rightNow,
+        startLoc: startLocation,
+        endLoc: endLocation,
+        leaveDate: departDate,
+        tripPrice: price,
+      }
+      database.ref().once('value', function(snap){
+        var username = snap.val().connections[connectID].user
+        var searchesArr = snap.val().searches.filter(Boolean)
+        var userSearchesArr
+
+        searchesArr.push(searchData)
+        database.ref('/searches').set(searchesArr)
+
+        if(userLoggedIn){
+          userSearchesArr = snap.val().users[username].searches.filter(Boolean)
+          userSearchesArr.push(searchData)
+          database.ref(`/users/${username}/searches`).set(userSearchesArr)
+          loadSpecificSearch(userSearchesArr.length-1, username)
+        } else {
+          loadSpecificSearch(searchesArr.length-1, false)
+        }
+      })
     });
   }
-  var searchData = {
-    name: name,
-    plannedOn: rightNow,
-    startLoc: startLocation,
-    endLoc: endLocation,
-    leaveDate: departDate,
-  }
-  database.ref().once('value', function(snap){
-    var username = snap.val().connections[connectID].user
-    var searchesArr = snap.val().searches.filter(Boolean)
-    var userSearchesArr
-
-    searchesArr.push(searchData)
-    database.ref('/searches').set(searchesArr)
-
-    if(userLoggedIn){
-      userSearchesArr = snap.val().users[username].searches.filter(Boolean)
-      userSearchesArr.push(searchData)
-      database.ref(`/users/${username}/searches`).set(userSearchesArr)
-      loadSpecificSearch(userSearchesArr.length-1, username)
-    } else {
-      loadSpecificSearch(searchesArr.length-1, false)
-    }
-  })
-
-  updateTable()
 })
 
 // Testing Google Auth
