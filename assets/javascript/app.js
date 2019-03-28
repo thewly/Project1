@@ -63,8 +63,9 @@ function loadSpecificSearch(index, user){
     var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
     // this get the percentage of the trip that's done
     var progressBar = howManyHasItBeen / totalTripDays * 100;
-    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 42;
+    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 0;
     console.log("To what percent am I done: " + cleanPercentage);
+    var oneDayPercent = Math.round(1 / totalTripDays * 100)
     totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
@@ -76,7 +77,7 @@ function loadSpecificSearch(index, user){
     $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
     $('.percentToLeave').text(`${cleanPercentage}%`)
     $('.totalTripCost').text(`$${totalTripPrice}`)
-    $('.amountSavePerDay').text(`$${totalTripPrice * .01}`)
+    $('.amountSavePerDay').text(`$${(totalTripPrice * (oneDayPercent / 100)).toFixed(2)}`)
     $('.amountCurrentlySaved').text(`$${(totalTripPrice * (cleanPercentage / 100)).toFixed(2)}`)
     $('.amountLeftToSave').text(`$${(totalTripPrice * ((100 - cleanPercentage) / 100)).toFixed(2)}`)
   })
@@ -116,33 +117,12 @@ $('#submit-btn').on('click', function(){
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
 
-  // This is a simulated "start" date so I can test percentages or progress
-  var fakeToday = new Date("2019-01-09");
-  var fakeTime = fakeToday.getTime();
-  console.log("date of booking: " + fakeTime);
-
   // This is pulling the depart date input
   var departDate = new Date($("#departDateInput").val()).getTime();
-  console.log("departure: " + departDate);
 
   // days from when you booked until now
   var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
-
-  // days between that fake start day & current time
-  var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
-  console.log("Total goal length: " + howManyHasItBeen);
-
-  // total trip days
-  var totalTripDays = Math.floor((departDate - fakeTime) / 86400000);
-
-  // this get the percentage of the trip that's done
-  var progressBar = howManyHasItBeen / totalTripDays * 100;
-  var cleanPercentage = Math.round(progressBar);
-  console.log("To what percent am I done: " + cleanPercentage);
-
-  // this pushes that percentage to the progress bar, finall
-  $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
 
   if(testAPIMode){
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
