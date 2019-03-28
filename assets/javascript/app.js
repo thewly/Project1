@@ -63,8 +63,9 @@ function loadSpecificSearch(index, user){
     var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
     // this get the percentage of the trip that's done
     var progressBar = howManyHasItBeen / totalTripDays * 100;
-    var cleanPercentage = Math.round(progressBar);
+    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 42;
     console.log("To what percent am I done: " + cleanPercentage);
+    totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
 
@@ -74,10 +75,10 @@ function loadSpecificSearch(index, user){
     $('.departureDate').text(moment(searchObj.leaveDate).format("MM/DD/YYYY"))
     $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
     $('.percentToLeave').text(`${cleanPercentage}%`)
-    $('.totalTripCost').text(`$${searchObj.tripPrice ? searchObj.tripPrice : '4,242'}`)
-    $('.amountSavePerDay').text(`$${searchObj.tripPrice * .01}`)
-    $('.amountCurrentlySaved').text(`$${searchObj.tripPrice * (cleanPercentage / 100)}`)
-    $('.amountLeftToSave').text(`$${searchObj.tripPrice * ((100 - cleanPercentage) / 100)}`)
+    $('.totalTripCost').text(`$${totalTripPrice}`)
+    $('.amountSavePerDay').text(`$${totalTripPrice * .01}`)
+    $('.amountCurrentlySaved').text(`$${(totalTripPrice * (cleanPercentage / 100)).toFixed(2)}`)
+    $('.amountLeftToSave').text(`$${(totalTripPrice * ((100 - cleanPercentage) / 100)).toFixed(2)}`)
   })
 }
 
