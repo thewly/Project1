@@ -134,6 +134,28 @@
                                   </div>
         
         `)
+//         unirest.post("https://BingSearchdimashirokovV1.p.rapidapi.com/searchImage")
+// .header("X-RapidAPI-Key", "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6")
+// .header("Content-Type", "application/x-www-form-urlencoded")
+// .send("subscriptionKey=6c5d779f5daf4b03bac96cf0184fe9e7")
+// .send("query=cat")
+// .end(function (result) {
+//   console.log(result.status, result.headers, result.body);
+// });
+
+            $.ajax({
+                url: "https://BingSearchdimashirokovV1.p.rapidapi.com/searchImage",
+                headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" }
+                // send: {"subscriptionKey=6c5d779f5daf4b03bac96cf0184fe9e7"}
+                send: {"query=cat"}
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+            });
+
+
+
+        6c5d779f5daf4b03bac96cf0184fe9e7
 
             $.ajax({
                 url: queryURL,
