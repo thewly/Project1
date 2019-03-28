@@ -135,7 +135,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Destnation</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Planned On</th>
                                     <th scope="col">Departure Date</th>
                                     <th scope="col">Button</th>
                                 </tr>
@@ -153,6 +154,7 @@
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Destnation</th>
+                                    <th scope="col">Planned On</th>
                                     <th scope="col">Departure Date</th>
                                     <th scope="col">Button</th>
                                 </tr>
@@ -185,21 +187,22 @@
                         <div class="row" style="color:black;">
                             <div class="col-md-4">
                                 <h4>Here's your form information:</h4>
-                                <p id="travelerName">Name: Tiny Tim</p>
-                                <p id="destination">Destination: Tuscany, Italy</p>
-                                <p id="departureDate">You're leaving on: Dec 31st, 2019</p>
+                                <p>Name: <span class="travelerName">Tiny Tim</span></p>
+                                <p>Departing from: <span class='startingLocation'>Dallas, TX</span></p>
+                                <p>Destination: <span class="destinationName">Tuscany, Italy</span></p>
+                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Here's your progress:</h4>
-                                <p id="whenBooked">You planned your trip on: July 4th, 2019</p>
-                                <p id="tripCost">Your total trip cost: $100</p>
-                                <p id="percentCompleted">You are: 25% of the way there!</p>
+                                <p>You planned your trip on: <span class="plannedOnDate">July 4th, 2019</span></p>
+                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>You are: <span class='percentToLeave'>25%</span> of the way there!</p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Micro Goals:</h4>
-                                <p>Each day I need to be saving: $4,000</p>
-                                <p>So far I've saved: $644,000</p>
-                                <p>You only have this much left to save: $1,000,000</p>
+                                <p>Each day I need to be saving: <span class='amountToSave'>$4,000</span></p>
+                                <p>So far I've saved: <span class="amountCurrentlySaved">$644,000</span></p>
+                                <p>You only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
                             </div>
                         </div>
                     </div>
@@ -211,39 +214,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src='./assets/javascript/app.js'></script>
-
-    <script>
-        $(document).on('click', '.switch-element-btn', function () {
-            var showPage = $(this).data('show');
-            var hidePage = $(this).data('hide');
-            $(`#${hidePage}`).addClass('hidden-element');
-            $(`#${showPage}`).removeClass('hidden-element');
-        })
-
-        $(document).on('click', '.home-btn', function () {
-            $("#searchPage").addClass('hidden-element');
-            $("#originPage").addClass('hidden-element');
-            $("#tripPage").removeClass('hidden-element');
-            $("#selectionPage").addClass('hidden-element');
-            $("#destinationPage").addClass('hidden-element');
-            $("#landingPage").removeClass('hidden-element');
-        })
-
-    </script>
-
-    <script>
-        var a = moment([2018, 0, 29]);
-        var b = moment([2022, 0, 28]);
-        var differenceTotal = a.diff(b, 'days');   // =1
-        var today = moment();
-        var differenceToday = a.diff(today, 'days');
-        var decreaseValue = differenceTotal - differenceToday;
-        var percentage = (decreaseValue / differenceTotal) * 100;
-        cleanPercentage = Math.round(percentage);
-
-        $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-    </script>
-
 </body>
 
 </html>
