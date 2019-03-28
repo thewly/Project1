@@ -4,11 +4,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var connectID = ''
 var userLoggedIn = false
 
-<<<<<<< HEAD
-var testAPIMode = true;
-=======
 var testAPIMode = true
->>>>>>> 6ae50c6ad8182e5f51a67048999020313856e0aa
 var cheapestPriceTotal = 100;
 
 // Pulls search data from the database and hands it off to populateTables() to update page
@@ -137,7 +133,7 @@ $('#submit-btn').on('click', function(){
   console.log("Total goal length: " + howManyHasItBeen);
 
   // total trip days
-  var totalTripDays = Math.floor((departDate - fakeTime) / 86400000);
+  var totalTripDays = Math.floor((departDate - dateOfBooking) / 86400000);
 
   // this get the percentage of the trip that's done
   var progressBar = howManyHasItBeen / totalTripDays * 100;
@@ -155,6 +151,59 @@ $('#submit-btn').on('click', function(){
     <i class="fas fa-spinner fa-spin"></i>
     </div>
     `)
+
+// Here's the image API
+let subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+
+let host = 'https://api.cognitive.microsoft.com';
+let path = '/bing/v7.0/images/search?q=';
+
+let term = $("#cityDestination").val();
+
+let response_handler = function (response) {
+    let body = '';
+    response.on('data', function (d) {
+        body += d;
+    });
+    response.on('end', function () {
+        console.log('\nRelevant Headers:\n');
+        for (var header in response.headers)
+            // header keys are lower-cased by Node.js
+            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+                 console.log(header + ": " + response.headers[header]);
+        body = JSON.stringify(JSON.parse(body), null, '  ');
+        console.log('\nJSON Response:\n');
+        console.log(body);
+    });
+    response.on('error', function (e) {
+        console.log('Error: ' + e.message);
+    });
+};
+
+let bing_image_search = function (search) {
+  console.log('Searching images for: ' + term);
+  let request_params = {
+        method : 'GET',
+        url : host + path + term,
+        headers : {
+            'Ocp-Apim-Subscription-Key' : subscriptionKey,
+        }
+    };
+$.ajax (request_params).then(function (response){
+  $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
+  console.log(response.value[0].thumbnailUrl);
+});
+    
+}
+
+if (subscriptionKey.length === 32) {
+    bing_image_search(term);
+} else {
+    console.log('Invalid Bing Search API subscription key!');
+    console.log('Please paste yours into the source code.');
+}
+
+
     $.ajax({
       url: queryURL,
       headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
