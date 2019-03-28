@@ -75,7 +75,7 @@
                         <form>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" id="destinationInput"
-                                    placeholder="Enter destination">
+                                value="PHL" placeholder="Enter destination">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
@@ -95,11 +95,11 @@
                         <form>
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-lg" id="originInput"
-                                    placeholder="Enter starting origin">
+                                    value="DFW" placeholder="Enter starting origin">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <input type="text" class="form-control" id="nameInput" placeholder="Your name">
+                                    <input type="text" value="Jim Carrey" class="form-control" id="nameInput" placeholder="Your name">
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary" disabled><i
@@ -191,9 +191,9 @@
                             </div>
                             <div class="col-md-4">
                                 <h4>Here's your progress:</h4>
-                                <p>You planned your trip on: July 4th, 2019</p>
-                                <p>You're leaving on: Dec 31st, 2019</p>
-                                <p>You are: 25% of the way there!</p>
+                                <p id="whenBooked">You planned your trip on: July 4th, 2019</p>
+                                <p id="tripCost">Your total trip cost: $100</p>
+                                <p id="percentCompleted">You are: 25% of the way there!</p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Micro Goals:</h4>

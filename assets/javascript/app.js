@@ -4,7 +4,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var connectID = ''
 var userLoggedIn = false
 
-var testAPIMode = false
+var testAPIMode = true;
 var cheapestPriceTotal = 100;
 
 // added blank variables to limit errors since these hadn't been defined yet since previously they were only defined in a click function
@@ -74,18 +74,17 @@ $('#submit-btn').on('click', function(){
   endLocation = $('#destinationInput').val()
   departdate = $('#departDateInput').val()
   
-  var traveler = $("#nameInput").val().trim();
-  $("#travelerName").text("Name: " + traveler);
-  // 2019-04-01
-  
+  // Is this next line useless? I can't see where it goes?
+  // var traveler = $("#nameInput").val().trim();
+
   //This pulls today's date
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
   
   // This is a simulated "start" date so I can test percentages or progress
   var fakeToday = new Date("2019-01-09");
-  var fakeTime = fakeToday.getTime();
-  console.log("date of booking: " + fakeTime);
+  var dateOfBooking = fakeToday.getTime();
+  console.log("date of booking: " + dateOfBooking);
   
   // This is pulling the depart date input
   var date1 = new Date($("#departDateInput").val()).getTime();
@@ -96,11 +95,11 @@ $('#submit-btn').on('click', function(){
   console.log("days between when you started until now: " + totalDaysLeft);
   
   // days between that fake start day & current time
-  var howManyHasItBeen = Math.floor((rightNow - fakeTime) / 86400000);
+  var howManyHasItBeen = Math.floor((rightNow - dateOfBooking) / 86400000);
   console.log("Total goal length: " + howManyHasItBeen);
   
   // total trip days
-  var totalTripDays = Math.floor((date1 - fakeTime) / 86400000);
+  var totalTripDays = Math.floor((date1 - dateOfBooking) / 86400000);
   
   // this get the percentage of the trip that's done
   var progressBar = howManyHasItBeen / totalTripDays * 100;
@@ -115,7 +114,7 @@ $('#submit-btn').on('click', function(){
   
   
   if(testAPIMode){
-    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
+    var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + departdate + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
     <div class="fa-3x">
@@ -127,44 +126,57 @@ $('#submit-btn').on('click', function(){
       headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
       method: "GET"
     }).then(function (response) {
-      console.log(response.cheapestPriceTotal);
-      $("#output").text(response.cheapestPriceTotal);
+      console.log(response);
+      var yourTripCost = response.cheapestPriceTotal;
+
+      $("#output").text(yourTripCost);
+      console.log(yourTripCost);
+
+      database.ref().once('value', function(snap){
+        var username = snap.val().connections[connectID].user
+        var searchesArr = snap.val().searches.filter(Boolean)
+        if(userLoggedIn){
+          var userSearchesArr = snap.val().users[username].searches.filter(Boolean)
+          userSearchesArr.push({
+            name: name,
+            plannedOn: `${month}/${day}/${year}`,
+            startLoc: startLocation,
+            endLoc: endLocation,
+            leaveDate: departdate,
+            yourTripCost: yourTripCost,
+            dateOfBooking: dateOfBooking,
+            cleanPercentage: cleanPercentage
+          })
+          database.ref(`/users/${username}/searches`).set(userSearchesArr)
+        }
+        searchesArr.push({
+          name: name,
+          plannedOn: `${month}/${day}/${year}`,
+          startLoc: startLocation,
+          endLoc: endLocation,
+          leaveDate: departdate,
+          yourTripCost: yourTripCost,
+          dateOfBooking: dateOfBooking,
+          cleanPercentage: cleanPercentage
+        })
+        database.ref('/searches').set(searchesArr)
+      })
+      
+      updateTable()
     });
   }
-  
-  database.ref().once('value', function(snap){
-    var username = snap.val().connections[connectID].user
-    var searchesArr = snap.val().searches.filter(Boolean)
-    if(userLoggedIn){
-      var userSearchesArr = snap.val().users[username].searches.filter(Boolean)
-      userSearchesArr.push({
-        name: name,
-        plannedOn: `${month}/${day}/${year}`,
-        startLoc: startLocation,
-        endLoc: endLocation,
-        leaveDate: departdate,
-      })
-      database.ref(`/users/${username}/searches`).set(userSearchesArr)
-    }
-    searchesArr.push({
-      name: name,
-      plannedOn: `${month}/${day}/${year}`,
-      startLoc: startLocation,
-      endLoc: endLocation,
-      leaveDate: departdate,
-    })
-    database.ref('/searches').set(searchesArr)
-  })
-  
-  updateTable()
 })
 
 // I'm trying to add the function so that when you add a child to the table, it will add information to the final page
-database.ref().on('child_added', function(){
-  $(`#travelerName`).text("Name: " + name);
-  // the line below won't populate to the landing page, but the line above will
-  $(`#destination`).text("Destination: " + $('#destinationInput').val());
+database.ref('/searches').on('child_added', function(snap){
+$(`#travelerName`).text("Name: " + snap.val().name);
+$(`#destination`).text("Destination: " + snap.val().endLoc);
+$('#departureDate').text("You are leaving on: " + snap.val().leaveDate);
+$('#whenBooked').text("You booked this trip on: " + snap.val().dateOfBooking);
+$('#tripCost').text("Your total trip will cost: " + snap.val().yourTripCost);
+$('#percentComplete').text("You are " + snap.val().cleanPercentage + " of the way there!");
 })
+  
 
 // Testing Google Auth
 $('#google-login-btn').on('click', function(){
