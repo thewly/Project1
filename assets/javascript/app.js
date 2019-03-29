@@ -90,15 +90,42 @@ function loadSpecificSearch(index, user) {
 $(document).on('click', "#loadSearchPage", function () {
   loadSpecificSearch($(this).data('search'), $(this).data('user'))
 })
-$(document).on('click', '.switch-element-btn', function () {
-  var hideElement = $(this).data('hide')
-  var showElement = $(this).data('show')
-  $(`#${hideElement}`).addClass('hidden-element')
-  $(`#${showElement}`).removeClass('hidden-element')
+
+$(document).on('click', '.switch-element-btn', function() {
+  var showPage = $(this).data('show');
+  var hidePage = $(this).data('hide');
+  $(`#${hidePage}`).addClass('disappear');
+  $(`#${showPage}`).addClass('disappear');
+  setTimeout(function() {
+      $(`#${hidePage}`).addClass('hidden-element');
+      $(`#${hidePage}`).removeClass('disappear');
+      $(`#${showPage}`).removeClass('hidden-element');
+      setTimeout(function() {
+          $(`#${showPage}`).removeClass('disappear');
+      }, 250)
+  }, 700);
 })
+
+$(document).on('click', '.quick-switch-btn', function() {
+  var showPage = $(this).data('show');
+  var hidePage = $(this).data('hide');
+  $(`#${hidePage}`).addClass('hidden-element');
+  $(`#${showPage}`).removeClass('hidden-element');
+})
+
+$(document).on('click', '.home-btn', function() {
+  $("#searchPage").addClass('hidden-element');
+  $("#originPage").addClass('hidden-element');
+  $("#tripPage").removeClass('hidden-element');
+  $("#selectionPage").addClass('hidden-element');
+  $("#destinationPage").addClass('hidden-element');
+  $("#landingPage").removeClass('hidden-element');
+})
+
 $('#showSelectionPage').on('click', function () {
   updateTable()
 })
+
 $(document).on('click', '.home-btn', function () {
   $("#searchPage").addClass('hidden-element');
   $("#originPage").addClass('hidden-element');

@@ -38,36 +38,67 @@
 <body>
     <div class="container" id="navigator">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand">NEXT JRNY</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-brand">NEXT JRNY</span>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
-                <span class="ml-auto" id='login-info'><i class="fas fa-key" id='google-login-btn'></i></span>
+                <a class="login-button ml-auto" href="#" id='login-info'>
+                    <div class="login-primary">
+                        <span class="icon fas fa-key"></span>
+                    </div>
+                    <div class="login-secondary">
+                        log in
+                    </div>
+                </a>
             </div>
+
         </nav>
     </div>
 
     <div class="container text-center" id="landingPage">
-        <button type="button" class="btn btn-primary switch-element-btn" data-hide="landingPage"
-            data-show="searchPage">Forge my path</button>
-        <button type="button" class="btn btn-primary switch-element-btn" id="showSelectionPage" data-hide="landingPage"
-            data-show="selectionPage">Follow in footsteps</button>
+        <div class = "container" id="landingPage-bg"></div>
+        <div class="wrap">
+
+            <a class="slide-button switch-element-btn" data-hide="landingPage" data-show="searchPage" href="#">
+                <div class="slide-primary">
+                    <span class="icon fas fa-hiking"></span>
+                    FORGE NEW PATH
+                </div>
+                <div class="slide-secondary">
+                    create my new trip
+                    <span class="icon far fa-paper-plane"></span>
+                </div>
+            </a>
+
+            <a class="slide-button switch-element-btn" data-hide="landingPage" data-show="selectionPage" href="#">
+                <div class="slide-primary">
+                    <span class="icon fas fa-shoe-prints"></span>
+                    FOLLOW FOOTSTEPS
+                </div>
+                <div class="slide-secondary">
+                    explore public trips
+                    <span class="icon far fa-paper-plane"></span>
+                </div>
+            </a>
+            
+        </div>
     </div>
 
     <div class="container hidden-element" id="searchPage">
         <div class="row">
-            <div class="col-3"><img src="assets/images/stock1.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock2.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock11.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock7.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock1.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock2.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock3.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock4.jpg" class="imgBlock" alt=""></div>
         </div>
         <div class="row">
-            <div class="col-3"><img src="assets/images/stock5.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock5.jpg" class="imgBlock" alt=""></div>
             <div class="col-6">
-                <div class="splash d-flex">
+                <div class="searchBox d-flex">
 
                     <!-- DESTINATION DETAILS -->
                     <div class="container align-self-center" id="tripPage">
@@ -88,8 +119,7 @@
                                     <input type="date" class="form-control" id="departDateInput">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary switch-element-btn"
-                                        data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
+                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -110,25 +140,24 @@
                                     <input type="text" class="form-control" id="nameInput" placeholder="Your name">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary" disabled><i
-                                            class="far fa-map"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn'
-                                        data-hide="searchPage" data-show="destinationPage"><i
-                                            class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-undo-alt"></i></button>
+                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
 
+                   <div></div>
+
                 </div>
             </div>
-            <div class="col-3"><img src="assets/images/stock6.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock6.jpg" class="imgBlock" alt=""></div>
         </div>
         <div class="row">
-            <div class="col-3"><img src="assets/images/stock4.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock8.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock9.jpg" alt=""></div>
-            <div class="col-3"><img src="assets/images/stock10.jpg" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock7.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock8.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock9.jpg" class="imgBlock" alt=""></div>
+            <div class="col-3"><img src="assets/images/stock10.jpg" class="imgBlock" alt=""></div>
         </div>
     </div>
 
@@ -220,6 +249,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src='./assets/javascript/app.js'></script>
-</body>
 
+</body>
 </html>
