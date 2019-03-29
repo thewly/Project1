@@ -8,11 +8,11 @@ var testAPIMode = true
 var cheapestPriceTotal = 100;
 
 // Pulls search data from the database and hands it off to populateTables() to update page
-function updateTable(){
+function updateTable() {
   $('#myTrips').empty()
   $('#ourTrips').empty()
-  database.ref().once('value', function(snap){
-    if(userLoggedIn){
+  database.ref().once('value', function (snap) {
+    if (userLoggedIn) {
       $('#myTripsTable').removeClass('hidden-element')
       var username = snap.val().connections[connectID].user
       var userSearches = snap.val().users[username].searches.filter(Boolean)
@@ -25,10 +25,10 @@ function updateTable(){
   })
 }
 // Appends search data from database into one of the two tables (based on arguments passed)
-function populateTables(table, data){
-  if(data.length > 0){
+function populateTables(table, data) {
+  if (data.length > 0) {
     var amountToShow = data.length > 10 ? 10 : data.length
-    for(i=0;i<amountToShow;i++){
+    for (i = 0; i < amountToShow; i++) {
       $(`#${table}`).append(`
         <tr>
         <th scope="col">${data[data.length - 1 - i].name}</th>
@@ -42,10 +42,10 @@ function populateTables(table, data){
   }
 }
 
-function loadSpecificSearch(index, user){
-  database.ref().once('value', function(snap){
+function loadSpecificSearch(index, user) {
+  database.ref().once('value', function (snap) {
     var searchObj
-    if(userLoggedIn){
+    if (userLoggedIn) {
       searchObj = snap.val().users[snap.val().connections[connectID].user].searches[index]
     } else {
       searchObj = snap.val().searches[index]
@@ -81,28 +81,28 @@ function loadSpecificSearch(index, user){
   })
 }
 
-$(document).on('click', "#loadSearchPage", function(){
+$(document).on('click', "#loadSearchPage", function () {
   loadSpecificSearch($(this).data('search'), $(this).data('user'))
 })
-$(document).on('click', '.switch-element-btn', function(){
+$(document).on('click', '.switch-element-btn', function () {
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
   $(`#${hideElement}`).addClass('hidden-element')
   $(`#${showElement}`).removeClass('hidden-element')
 })
-$('#showSelectionPage').on('click', function(){
+$('#showSelectionPage').on('click', function () {
   updateTable()
 })
-$(document).on('click', '.home-btn', function(){
-    $("#searchPage").addClass('hidden-element');
-    $("#originPage").addClass('hidden-element');
-    $("#tripPage").removeClass('hidden-element');
-    $("#selectionPage").addClass('hidden-element');
-    $("#destinationPage").addClass('hidden-element');
-    $("#landingPage").removeClass('hidden-element');
+$(document).on('click', '.home-btn', function () {
+  $("#searchPage").addClass('hidden-element');
+  $("#originPage").addClass('hidden-element');
+  $("#tripPage").removeClass('hidden-element');
+  $("#selectionPage").addClass('hidden-element');
+  $("#destinationPage").addClass('hidden-element');
+  $("#landingPage").removeClass('hidden-element');
 })
 
-$('#submit-btn').on('click', function(){
+$('#submit-btn').on('click', function () {
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
@@ -119,7 +119,7 @@ $('#submit-btn').on('click', function(){
   var fakeToday = new Date("2019-01-09");
   var dateOfBooking = fakeToday.getTime();
   console.log("date of booking: " + dateOfBooking);
-  
+
   // This is pulling the depart date input
   var departDate = new Date($("#departDateInput").val()).getTime();
   console.log("departure: " + departDate);
@@ -127,7 +127,7 @@ $('#submit-btn').on('click', function(){
   // days from when you booked until now
   var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
-  
+
   // days between that fake start day & current time
   var howManyHasItBeen = Math.floor((rightNow - dateOfBooking) / 86400000);
   console.log("Total goal length: " + howManyHasItBeen);
@@ -143,7 +143,7 @@ $('#submit-btn').on('click', function(){
   // this pushes that percentage to the progress bar, finall
   $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
 
-  if(testAPIMode){
+  if (testAPIMode) {
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
@@ -152,57 +152,58 @@ $('#submit-btn').on('click', function(){
     </div>
     `)
 
-// Here's the image API
-let subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+    // // Here's the image API
+    // let subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
 
-let host = 'https://api.cognitive.microsoft.com';
-let path = '/bing/v7.0/images/search?q=';
+    // let host = 'https://api.cognitive.microsoft.com';
+    // let path = '/bing/v7.0/images/search?q=';
 
-let term = $("#cityDestination").val();
+    // let term = $("#cityDestination").val();
 
-let response_handler = function (response) {
-    let body = '';
-    response.on('data', function (d) {
-        body += d;
-    });
-    response.on('end', function () {
-        console.log('\nRelevant Headers:\n');
-        for (var header in response.headers)
-            // header keys are lower-cased by Node.js
-            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-                 console.log(header + ": " + response.headers[header]);
-        body = JSON.stringify(JSON.parse(body), null, '  ');
-        console.log('\nJSON Response:\n');
-        console.log(body);
-    });
-    response.on('error', function (e) {
-        console.log('Error: ' + e.message);
-    });
-};
+    // let response_handler = function (response) {
+    //   let body = '';
+    //   response.on('data', function (d) {
+    //     body += d;
+    //   });
+    //   response.on('end', function () {
+    //     console.log('\nRelevant Headers:\n');
+    //     for (var header in response.headers)
+    //       // header keys are lower-cased by Node.js
+    //       if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+    //         console.log(header + ": " + response.headers[header]);
+    //     body = JSON.stringify(JSON.parse(body), null, '  ');
+    //     console.log('\nJSON Response:\n');
+    //     console.log(body);
+    //   });
+    //   response.on('error', function (e) {
+    //     console.log('Error: ' + e.message);
+    //   });
+    // };
 
-let bing_image_search = function (search) {
-  console.log('Searching images for: ' + term);
-  let request_params = {
-        method : 'GET',
-        url : host + path + term,
-        headers : {
-            'Ocp-Apim-Subscription-Key' : subscriptionKey,
-        }
-    };
-$.ajax (request_params).then(function (response){
-  console.log(response.value[0]);
-  $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
-  console.log(response.value[0].thumbnailUrl);
-});
-    
-}
+    // let bing_image_search = function (search) {
+    //   console.log('Searching images for: ' + term);
+    //   let request_params = {
+    //     method: 'GET',
+    //     url: host + path + term,
+    //     headers: {
+    //       'Ocp-Apim-Subscription-Key': subscriptionKey,
+    //     }
+    //   };
 
-if (subscriptionKey.length === 32) {
-    bing_image_search(term);
-} else {
-    console.log('Invalid Bing Search API subscription key!');
-    console.log('Please paste yours into the source code.');
-}
+    //   $.ajax(request_params).then(function (response) {
+    //     console.log(response.value[0]);
+    //     $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
+    //     console.log(response.value[0].thumbnailUrl);
+    //   });
+
+    // }
+
+    // if (subscriptionKey.length === 32) {
+    //   bing_image_search(term);
+    // } else {
+    //   console.log('Invalid Bing Search API subscription key!');
+    //   console.log('Please paste yours into the source code.');
+    // }
 
 
     $.ajax({
@@ -221,7 +222,7 @@ if (subscriptionKey.length === 32) {
         leaveDate: departDate,
         tripPrice: price,
       }
-      database.ref().once('value', function(snap){
+      database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
         var searchesArr = snap.val().searches.filter(Boolean)
         var userSearchesArr
@@ -229,24 +230,24 @@ if (subscriptionKey.length === 32) {
         searchesArr.push(searchData)
         database.ref('/searches').set(searchesArr)
 
-        if(userLoggedIn){
+        if (userLoggedIn) {
           userSearchesArr = snap.val().users[username].searches.filter(Boolean)
           userSearchesArr.push(searchData)
           database.ref(`/users/${username}/searches`).set(userSearchesArr)
-          loadSpecificSearch(userSearchesArr.length-1, username)
+          loadSpecificSearch(userSearchesArr.length - 1, username)
         } else {
-          loadSpecificSearch(searchesArr.length-1, false)
+          loadSpecificSearch(searchesArr.length - 1, false)
         }
       })
     });
   }
 })
-  
+
 
 // Testing Google Auth
-$('#google-login-btn').on('click', function(){
+$('#google-login-btn').on('click', function () {
   event.preventDefault()
-  firebase.auth().signInWithPopup(provider).then(function(result) {
+  firebase.auth().signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
@@ -254,8 +255,8 @@ $('#google-login-btn').on('click', function(){
     var username = user.email.substring(0, user.email.indexOf('@'))
     var userEmail = user.email
     $('#login-info').html(`<p>${username}</p>`)
-    database.ref('/users').once('value', function(snap){
-      if(!snap.val()[username]){
+    database.ref('/users').once('value', function (snap) {
+      if (!snap.val()[username]) {
         database.ref('/users').update({
           [username]: {
             id: connectID,
@@ -274,7 +275,7 @@ $('#google-login-btn').on('click', function(){
       updateTable()
     })
 
-  }).catch(function(error) {
+  }).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -285,8 +286,8 @@ $('#google-login-btn').on('click', function(){
   });
 })
 
-database.ref('.info/connected').on('value', (snap)=>{
-  if(snap.val()){
+database.ref('.info/connected').on('value', (snap) => {
+  if (snap.val()) {
     var con = database.ref('/connections').push(true)
     connectID = con.key
 
