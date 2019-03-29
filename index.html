@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NEXT JRNY | Make getting there half the fun</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
@@ -14,21 +16,22 @@
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
     <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
-        authDomain: "smu-group-project-one.firebaseapp.com",
-        databaseURL: "https://smu-group-project-one.firebaseio.com",
-        projectId: "smu-group-project-one",
-        storageBucket: "smu-group-project-one.appspot.com",
-        messagingSenderId: "948311193030"
-      };
-      firebase.initializeApp(config);
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB3O0-LrVRbV08cdECYRZ2fqxl_pX2qxd4",
+            authDomain: "smu-group-project-one.firebaseapp.com",
+            databaseURL: "https://smu-group-project-one.firebaseio.com",
+            projectId: "smu-group-project-one",
+            storageBucket: "smu-group-project-one.appspot.com",
+            messagingSenderId: "948311193030"
+        };
+        firebase.initializeApp(config);
     </script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css"
+        integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -102,7 +105,14 @@
                         <h2>Where's the NEXT JRNY?</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="destinationInput" placeholder="Enter destination">
+                                <input type="text" class="form-control form-control-lg" id="destinationInput"
+                                placeholder="Destination 3-Digit Airport Code">
+                            </div>
+                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
+                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="cityDestination"
+                                placeholder="Your Destination City">
                             </div>
                             <div class="form-row">
                                 <div class="col-auto">
@@ -120,8 +130,11 @@
                         <h2>And where does it BEGIN?</h2>
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="originInput" placeholder="Enter origin">
+                                <input type="text" class="form-control form-control-lg" id="originInput"
+                                    placeholder="Origin 3-Digit Airport Code">
                             </div>
+                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
+                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
                             <div class="form-row">
                                 <div class="col-auto">
                                     <input type="text" class="form-control" id="nameInput" placeholder="Your name">
@@ -151,7 +164,7 @@
     <div class="container hidden-element" id="selectionPage">
         <div class="row">
             <div class="col-md-12">
-                <div class="card breathing-room">
+                <div id="myTripsTable" class="card breathing-room">
                     <div class="card-body">
                         <h4 class="text-center">My Trips</h4>
 
@@ -159,7 +172,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Destnation</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Planned On</th>
                                     <th scope="col">Departure Date</th>
                                     <th scope="col">Button</th>
                                 </tr>
@@ -176,7 +190,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Destnation</th>
+                                    <th scope="col">Destination</th>
+                                    <th scope="col">Planned On</th>
                                     <th scope="col">Departure Date</th>
                                     <th scope="col">Button</th>
                                 </tr>
@@ -186,7 +201,7 @@
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>
     </div>
 
     <div class="container hidden-element" id="destinationPage">
@@ -194,35 +209,35 @@
             <div class="col-md-12">
                 <div class="card breathing-room">
                     <div class="card-body">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/sTSA_sWGM44" allowfullscreen></iframe>
-                        </div>
+                            <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
 
                         </br>
                         <div class="progress">
-                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar"
+                                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                         </br>
                         <div class="row" style="color:black;">
                             <div class="col-md-4">
                                 <h4>Here's your form information:</h4>
-                                <p id="travelerName">Name: Tiny Tim</p>
-                                <p id="destination">Destination: Tuscany, Italy</p>
-                                <p id="departureDate">You're leaving on: Dec 31st, 2019</p>
+                                <p>Name: <span class="travelerName">Tiny Tim</span></p>
+                                <p>Departing from: <span class='startingLocation'>Dallas, TX</span></p>
+                                <p>Destination: <span class="destinationName">Tuscany, Italy</span></p>
+                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Here's your progress:</h4>
-                                <p>You planned your trip on: July 4th, 2019</p>
-                                <p>You're leaving on: Dec 31st, 2019</p>
-                                <p>You are: 25% of the way there!</p>
+                                <p>You planned your trip on: <span class="plannedOnDate">July 4th, 2019</span></p>
+                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>You are: <span class='percentToLeave'>25%</span> of the way there!</p>
                             </div>
                             <div class="col-md-4">
                                 <h4>Micro Goals:</h4>
-                                <p>Each day I need to be saving: $4,000</p>
-                                <p>So far I've saved: $644,000</p>
-                                <p>You only have this much left to save: $1,000,000</p>
+                                <p>Total amount to save: <span class='totalTripCost'></span> </p>
+                                <p>Each day I need to be saving: <span class='amountSavePerDay'>$4,000</span></p>
+                                <p>So far I've saved: <span class="amountCurrentlySaved">$644,000</span></p>
+                                <p>You only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
                             </div>
                         </div>
                     </div>
@@ -283,4 +298,5 @@
     </script>
 
 </body>
+
 </html>
