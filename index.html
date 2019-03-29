@@ -250,53 +250,5 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src='./assets/javascript/app.js'></script>
 
-    <script>
-        $(document).on('click', '.switch-element-btn', function(){
-            var showPage = $(this).data('show');
-            var hidePage = $(this).data('hide');
-            $(`#${hidePage}`).addClass('disappear');
-            $(`#${showPage}`).addClass('disappear');
-            setTimeout(function() {
-                $(`#${hidePage}`).addClass('hidden-element');
-                $(`#${hidePage}`).removeClass('disappear');
-                $(`#${showPage}`).removeClass('hidden-element');
-                setTimeout(function() {
-                    $(`#${showPage}`).removeClass('disappear');
-                }, 250)
-            }, 700);
-        })
-
-        $(document).on('click', '.quick-switch-btn', function(){
-            var showPage = $(this).data('show');
-            var hidePage = $(this).data('hide');
-            $(`#${hidePage}`).addClass('hidden-element');
-            $(`#${showPage}`).removeClass('hidden-element');
-        })
-
-        $(document).on('click', '.home-btn', function(){
-            $("#searchPage").addClass('hidden-element');
-            $("#originPage").addClass('hidden-element');
-            $("#tripPage").removeClass('hidden-element');
-            $("#selectionPage").addClass('hidden-element');
-            $("#destinationPage").addClass('hidden-element');
-            $("#landingPage").removeClass('hidden-element');
-        })
-
-    </script>
-
-    <script>
-        var a = moment([2018, 0, 29]);
-        var b = moment([2022, 0, 28]);
-        var differenceTotal = a.diff(b, 'days');   // =1
-        var today = moment();
-        var differenceToday = a.diff(today, 'days');
-        var decreaseValue = differenceTotal - differenceToday;
-        var percentage = (decreaseValue / differenceTotal) * 100;
-        cleanPercentage = Math.round(percentage);
-
-        $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-    </script>
-
 </body>
-
 </html>
