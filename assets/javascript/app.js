@@ -16,11 +16,13 @@ function updateTable() {
       $('#myTripsTable').removeClass('hidden-element')
       var username = snap.val().connections[connectID].user
       var userSearches = snap.val().users[username].searches.filter(Boolean)
+      database.ref(`/users/${username}/searches`).set(userSearches)
       populateTables('myTrips', userSearches)
     } else {
       $('#myTripsTable').addClass('hidden-element')
     }
     var searches = snap.val().searches.filter(Boolean)
+    database.ref(`/searches`).set(searches)
     populateTables('ourTrips', searches)
   })
 }
@@ -63,10 +65,14 @@ function loadSpecificSearch(index, user) {
     var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
     // this get the percentage of the trip that's done
     var progressBar = howManyHasItBeen / totalTripDays * 100;
-    var cleanPercentage = Math.round(progressBar);
+    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 0;
     console.log("To what percent am I done: " + cleanPercentage);
+    var oneDayPercent = Math.round(1 / totalTripDays * 100)
+    totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+    console.log(searchObj)
+    bing_image_search(searchObj.term)
 
     $('.travelerName').text(searchObj.name)
     $('.startingLocation').text(searchObj.startLoc)
@@ -74,10 +80,10 @@ function loadSpecificSearch(index, user) {
     $('.departureDate').text(moment(searchObj.leaveDate).format("MM/DD/YYYY"))
     $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
     $('.percentToLeave').text(`${cleanPercentage}%`)
-    $('.totalTripCost').text(`$${searchObj.tripPrice ? searchObj.tripPrice : '4,242'}`)
-    $('.amountSavePerDay').text(`$${searchObj.tripPrice * .01}`)
-    $('.amountCurrentlySaved').text(`$${searchObj.tripPrice * (cleanPercentage / 100)}`)
-    $('.amountLeftToSave').text(`$${searchObj.tripPrice * ((100 - cleanPercentage) / 100)}`)
+    $('.totalTripCost').text(`$${totalTripPrice}`)
+    $('.amountSavePerDay').text(`$${(totalTripPrice * (oneDayPercent / 100)).toFixed(2)}`)
+    $('.amountCurrentlySaved').text(`$${(totalTripPrice * (cleanPercentage / 100)).toFixed(2)}`)
+    $('.amountLeftToSave').text(`$${(totalTripPrice * ((100 - cleanPercentage) / 100)).toFixed(2)}`)
   })
 }
 
@@ -106,6 +112,7 @@ $('#submit-btn').on('click', function () {
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
+  var term = $("#cityDestination").val();
 
   var traveler = $("#nameInput").val().trim();
   $("#travelerName").text("Name: " + traveler);
@@ -115,104 +122,27 @@ $('#submit-btn').on('click', function () {
   var rightNow = moment().valueOf()
   console.log("date of booking: " + rightNow);
 
-  // This is a simulated "start" date so I can test percentages or progress
-  var fakeToday = new Date("2019-01-09");
-  var dateOfBooking = fakeToday.getTime();
-  console.log("date of booking: " + dateOfBooking);
-
   // This is pulling the depart date input
   var departDate = new Date($("#departDateInput").val()).getTime();
-  console.log("departure: " + departDate);
 
   // days from when you booked until now
   var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
 
-  // days between that fake start day & current time
-  var howManyHasItBeen = Math.floor((rightNow - dateOfBooking) / 86400000);
-  console.log("Total goal length: " + howManyHasItBeen);
-
-  // total trip days
-  var totalTripDays = Math.floor((departDate - dateOfBooking) / 86400000);
-
-  // this get the percentage of the trip that's done
-  var progressBar = howManyHasItBeen / totalTripDays * 100;
-  var cleanPercentage = Math.round(progressBar);
-  console.log("To what percent am I done: " + cleanPercentage);
-
-  // this pushes that percentage to the progress bar, finall
-  $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-
   if (testAPIMode) {
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
-    <div class="fa-3x">
-    <i class="fas fa-spinner fa-spin"></i>
-    </div>
+      <div class="fa-3x">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
     `)
-
-    // // Here's the image API
-    // let subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
-
-    // let host = 'https://api.cognitive.microsoft.com';
-    // let path = '/bing/v7.0/images/search?q=';
-
-    // let term = $("#cityDestination").val();
-
-    // let response_handler = function (response) {
-    //   let body = '';
-    //   response.on('data', function (d) {
-    //     body += d;
-    //   });
-    //   response.on('end', function () {
-    //     console.log('\nRelevant Headers:\n');
-    //     for (var header in response.headers)
-    //       // header keys are lower-cased by Node.js
-    //       if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
-    //         console.log(header + ": " + response.headers[header]);
-    //     body = JSON.stringify(JSON.parse(body), null, '  ');
-    //     console.log('\nJSON Response:\n');
-    //     console.log(body);
-    //   });
-    //   response.on('error', function (e) {
-    //     console.log('Error: ' + e.message);
-    //   });
-    // };
-
-    // let bing_image_search = function (search) {
-    //   console.log('Searching images for: ' + term);
-    //   let request_params = {
-    //     method: 'GET',
-    //     url: host + path + term,
-    //     headers: {
-    //       'Ocp-Apim-Subscription-Key': subscriptionKey,
-    //     }
-    //   };
-
-    //   $.ajax(request_params).then(function (response) {
-    //     console.log(response.value[0]);
-    //     $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
-    //     console.log(response.value[0].thumbnailUrl);
-    //   });
-
-    // }
-
-    // if (subscriptionKey.length === 32) {
-    //   bing_image_search(term);
-    // } else {
-    //   console.log('Invalid Bing Search API subscription key!');
-    //   console.log('Please paste yours into the source code.');
-    // }
-
-
     $.ajax({
       url: queryURL,
-      headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
+      headers: { "X-RapidAPI-Key": "7eb4efc85dmshdb58c9c105cc67ep10f420jsn7c5d7db36997" },
       method: "GET"
     }).then(function (response) {
-      console.log(response)
-      console.log(response.cheapestPriceTotal);
+      bing_image_search(term)
       var price = response.cheapestPriceTotal
       var searchData = {
         name: name,
@@ -221,6 +151,7 @@ $('#submit-btn').on('click', function () {
         endLoc: endLocation,
         leaveDate: departDate,
         tripPrice: price,
+        term: term,
       }
       database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
@@ -294,3 +225,54 @@ database.ref('.info/connected').on('value', (snap) => {
     con.onDisconnect().remove()
   }
 })
+
+
+
+
+// Here's the image API
+var subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+
+var host = 'https://api.cognitive.microsoft.com';
+var path = '/bing/v7.0/images/search?q=';
+
+var response_handler = function (response) {
+    let body = '';
+    response.on('data', function (d) {
+        body += d;
+    });
+    response.on('end', function () {
+        console.log('\nRelevant Headers:\n');
+        for (var header in response.headers)
+            // header keys are lower-cased by Node.js
+            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+                 console.log(header + ": " + response.headers[header]);
+        body = JSON.stringify(JSON.parse(body), null, '  ');
+        console.log('\nJSON Response:\n');
+        console.log(body);
+    });
+    response.on('error', function (e) {
+        console.log('Error: ' + e.message);
+    });
+};
+
+var bing_image_search = function (search) {
+  console.log('Searching images for: ' + search);
+  let request_params = {
+        method : 'GET',
+        url : host + path + search,
+        headers : {
+            'Ocp-Apim-Subscription-Key' : subscriptionKey,
+        }
+    };
+    $.ajax (request_params).then(function (response){
+      $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
+      console.log(response.value[0].thumbnailUrl);
+  });
+}
+
+// if (subscriptionKey.length === 32) {
+//     bing_image_search(term);
+// } else {
+//     console.log('Invalid Bing Search API subscription key!');
+//     console.log('Please paste yours into the source code.');
+// }
