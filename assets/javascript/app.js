@@ -190,6 +190,7 @@ let bing_image_search = function (search) {
         }
     };
 $.ajax (request_params).then(function (response){
+  console.log(response.value[0]);
   $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
   console.log(response.value[0].thumbnailUrl);
 });
