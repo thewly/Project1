@@ -8,11 +8,11 @@ var testAPIMode = true
 var cheapestPriceTotal = 100;
 
 // Pulls search data from the database and hands it off to populateTables() to update page
-function updateTable(){
+function updateTable() {
   $('#myTrips').empty()
   $('#ourTrips').empty()
-  database.ref().once('value', function(snap){
-    if(userLoggedIn){
+  database.ref().once('value', function (snap) {
+    if (userLoggedIn) {
       $('#myTripsTable').removeClass('hidden-element')
       var username = snap.val().connections[connectID].user
       var userSearches = snap.val().users[username].searches.filter(Boolean)
@@ -27,10 +27,10 @@ function updateTable(){
   })
 }
 // Appends search data from database into one of the two tables (based on arguments passed)
-function populateTables(table, data){
-  if(data.length > 0){
+function populateTables(table, data) {
+  if (data.length > 0) {
     var amountToShow = data.length > 10 ? 10 : data.length
-    for(i=0;i<amountToShow;i++){
+    for (i = 0; i < amountToShow; i++) {
       $(`#${table}`).append(`
         <tr>
         <th scope="col">${data[data.length - 1 - i].name}</th>
@@ -44,10 +44,10 @@ function populateTables(table, data){
   }
 }
 
-function loadSpecificSearch(index, user){
-  database.ref().once('value', function(snap){
+function loadSpecificSearch(index, user) {
+  database.ref().once('value', function (snap) {
     var searchObj
-    if(userLoggedIn){
+    if (userLoggedIn) {
       searchObj = snap.val().users[snap.val().connections[connectID].user].searches[index]
     } else {
       searchObj = snap.val().searches[index]
@@ -87,28 +87,28 @@ function loadSpecificSearch(index, user){
   })
 }
 
-$(document).on('click', "#loadSearchPage", function(){
+$(document).on('click', "#loadSearchPage", function () {
   loadSpecificSearch($(this).data('search'), $(this).data('user'))
 })
-$(document).on('click', '.switch-element-btn', function(){
+$(document).on('click', '.switch-element-btn', function () {
   var hideElement = $(this).data('hide')
   var showElement = $(this).data('show')
   $(`#${hideElement}`).addClass('hidden-element')
   $(`#${showElement}`).removeClass('hidden-element')
 })
-$('#showSelectionPage').on('click', function(){
+$('#showSelectionPage').on('click', function () {
   updateTable()
 })
-$(document).on('click', '.home-btn', function(){
-    $("#searchPage").addClass('hidden-element');
-    $("#originPage").addClass('hidden-element');
-    $("#tripPage").removeClass('hidden-element');
-    $("#selectionPage").addClass('hidden-element');
-    $("#destinationPage").addClass('hidden-element');
-    $("#landingPage").removeClass('hidden-element');
+$(document).on('click', '.home-btn', function () {
+  $("#searchPage").addClass('hidden-element');
+  $("#originPage").addClass('hidden-element');
+  $("#tripPage").removeClass('hidden-element');
+  $("#selectionPage").addClass('hidden-element');
+  $("#destinationPage").addClass('hidden-element');
+  $("#landingPage").removeClass('hidden-element');
 })
 
-$('#submit-btn').on('click', function(){
+$('#submit-btn').on('click', function () {
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
@@ -129,7 +129,7 @@ $('#submit-btn').on('click', function(){
   var totalDaysLeft = Math.floor((departDate - rightNow) / 86400000);
   console.log("days between when you started until now: " + totalDaysLeft);
 
-  if(testAPIMode){
+  if (testAPIMode) {
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
@@ -153,7 +153,7 @@ $('#submit-btn').on('click', function(){
         tripPrice: price,
         term: term,
       }
-      database.ref().once('value', function(snap){
+      database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
         var searchesArr = snap.val().searches.filter(Boolean)
         var userSearchesArr
@@ -161,13 +161,13 @@ $('#submit-btn').on('click', function(){
         searchesArr.push(searchData)
         database.ref('/searches').set(searchesArr)
 
-        if(userLoggedIn){
+        if (userLoggedIn) {
           userSearchesArr = snap.val().users[username].searches.filter(Boolean)
           userSearchesArr.push(searchData)
           database.ref(`/users/${username}/searches`).set(userSearchesArr)
-          loadSpecificSearch(userSearchesArr.length-1, username)
+          loadSpecificSearch(userSearchesArr.length - 1, username)
         } else {
-          loadSpecificSearch(searchesArr.length-1, false)
+          loadSpecificSearch(searchesArr.length - 1, false)
         }
       })
     });
@@ -176,9 +176,9 @@ $('#submit-btn').on('click', function(){
 
 
 // Testing Google Auth
-$('#google-login-btn').on('click', function(){
+$('#google-login-btn').on('click', function () {
   event.preventDefault()
-  firebase.auth().signInWithPopup(provider).then(function(result) {
+  firebase.auth().signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
@@ -186,8 +186,8 @@ $('#google-login-btn').on('click', function(){
     var username = user.email.substring(0, user.email.indexOf('@'))
     var userEmail = user.email
     $('#login-info').html(`<p>${username}</p>`)
-    database.ref('/users').once('value', function(snap){
-      if(!snap.val()[username]){
+    database.ref('/users').once('value', function (snap) {
+      if (!snap.val()[username]) {
         database.ref('/users').update({
           [username]: {
             id: connectID,
@@ -206,7 +206,7 @@ $('#google-login-btn').on('click', function(){
       updateTable()
     })
 
-  }).catch(function(error) {
+  }).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -217,8 +217,8 @@ $('#google-login-btn').on('click', function(){
   });
 })
 
-database.ref('.info/connected').on('value', (snap)=>{
-  if(snap.val()){
+database.ref('.info/connected').on('value', (snap) => {
+  if (snap.val()) {
     var con = database.ref('/connections').push(true)
     connectID = con.key
 

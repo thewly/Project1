@@ -121,7 +121,6 @@
 
 
             var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + originLocal + "&destination1=" + destinationLocal + "&departdate1=" + departureDate + "&cabin=e&currency=USD&adults=1&bags=0";
-            // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
 
             $("#output").append(`
         <div class="fa-3x">
@@ -132,9 +131,8 @@
                                     <i class="fas fa-spinner fa-pulse"></i>
                                     <i class="fas fa-stroopwafel fa-spin"></i>
                                   </div>
-        
-        `)
 
+        `)
             $.ajax({
                 url: queryURL,
                 headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
