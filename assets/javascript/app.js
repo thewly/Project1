@@ -128,10 +128,63 @@ $('#submit-btn').on('click', function(){
     var queryURL = "https://apidojo-kayak-v1.p.rapidapi.com/flights/create-session?origin1=" + startLocation + "&destination1=" + endLocation + "&departdate1=" + moment(departDate).format('YYYY-MM-DD') + "&cabin=e&currency=USD&adults=1&bags=0";
     // var APIkey = "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6";
     $("#output").append(`
-      <div class="fa-3x">
-        <i class="fas fa-spinner fa-spin"></i>
-      </div>
+    <div class="fa-3x">
+    <i class="fas fa-spinner fa-spin"></i>
+    </div>
     `)
+
+// Here's the image API
+let subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+
+let host = 'https://api.cognitive.microsoft.com';
+let path = '/bing/v7.0/images/search?q=';
+
+let term = $("#cityDestination").val();
+
+let response_handler = function (response) {
+    let body = '';
+    response.on('data', function (d) {
+        body += d;
+    });
+    response.on('end', function () {
+        console.log('\nRelevant Headers:\n');
+        for (var header in response.headers)
+            // header keys are lower-cased by Node.js
+            if (header.startsWith("bingapis-") || header.startsWith("x-msedge-"))
+                 console.log(header + ": " + response.headers[header]);
+        body = JSON.stringify(JSON.parse(body), null, '  ');
+        console.log('\nJSON Response:\n');
+        console.log(body);
+    });
+    response.on('error', function (e) {
+        console.log('Error: ' + e.message);
+    });
+};
+
+let bing_image_search = function (search) {
+  console.log('Searching images for: ' + term);
+  let request_params = {
+        method : 'GET',
+        url : host + path + term,
+        headers : {
+            'Ocp-Apim-Subscription-Key' : subscriptionKey,
+        }
+    };
+$.ajax (request_params).then(function (response){
+  $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
+  console.log(response.value[0].thumbnailUrl);
+});
+
+}
+
+if (subscriptionKey.length === 32) {
+    bing_image_search(term);
+} else {
+    console.log('Invalid Bing Search API subscription key!');
+    console.log('Please paste yours into the source code.');
+}
+
+
     $.ajax({
       url: queryURL,
       headers: { "X-RapidAPI-Key": "c9b53cf803msh302e1160032e5ffp16e9dbjsn3ccee16556b6" },
@@ -168,6 +221,7 @@ $('#submit-btn').on('click', function(){
     });
   }
 })
+
 
 // Testing Google Auth
 $('#google-login-btn').on('click', function(){
