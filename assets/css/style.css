@@ -1,27 +1,23 @@
 /* GLOBAL STYLING */
-body {
+html, body {
     color: #ffffff;
     font-family: 'Raleway', sans-serif;
+    height: 100%;
+}
+
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .navbar {
-    margin: 0 10px 10px;
+    margin: 0 0 10px;
     background-color: #092168;
-    font-size: 1.5rem;
 }
 
 .navbar-brand {
     font-family: 'Playfair Display', serif;
-}
-
-.btn {
-    background-color: #092168;
-}
-
-.home-btn, #google-login-btn {
-    color: #C58700;
-    font-size: 1.3rem;
-    cursor: pointer;
+    font-size: 1.5rem;
 }
 
 h2 {
@@ -32,82 +28,148 @@ h2 {
     margin-top: -1rem;
 }
 
-.hidden-element {
-    display: none;
-}
-
 /* GRID & IMAGES */
 
-/* NEXT PHASE: FADE OUT PAGES
-.hide {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 1s, opacity 1s;
-} */
-
 .row {
-    margin: 0;
+    margin: 0 -10px;
 }
 
 .col-3, .col-6 {
     padding: 10px;
 }
 
-img {
+.imgBlock {
     width: 100%;
     height: 250px;
     object-fit: cover;
 }
 
-/* LANDING PAGE & SEARCH PAGE */
+/* LANDING & SEARCH PAGE */
 
-.splash {
+#landingPage {
+    height: calc(100% - 76px);
+}
+
+#landingPage-bg {
+    background:#ffffff url("../images/splash-airport.png") no-repeat;
+    opacity: .8;
+    height: 100%;
+    transition: opacity .5, height .5s;
+}
+
+#searchPage {
+    height: calc(100% - 76px);
+    transition: opacity .5;
+}
+
+.searchBox {
     background-color: #03899C;
     height: 250px;
     padding: 20px;
+    transition: opacity .5;
+}
+
+/* VISUAL EFFECTS */
+
+.hidden-element {
+    display: none;
+}
+
+.disappear {
+    opacity: 0;
+    height: 0 !important;
+    transition: opacity .5s, height .5s;
+}
+
+/* BUTTONS + VFX */
+
+.btn {
+    background-color: #092168;
+}
+
+.home-btn, #login-info {
+    color: #FF7A00;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
 .wrap {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -86px;
-    margin-left: -89px;
+    margin-top: -85px;
+    margin-left: -170px;
     text-align: center;
 }
 
-a {
-    -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-    -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-    -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-    -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-    transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+.slide-button {
+    height: 64px;
     display: block;
-    margin: 20px auto;
-    max-width: 250px;
+    border: 3px solid #03899C;
+    border-radius: .25rem;
+    margin: 15px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: center;
     text-decoration: none;
-    border-radius: 4px;
-    padding: 20px 30px;
-    color: #092168;
+    color: #03899C;
+    overflow: hidden;
+    text-decoration: none !important;
+    opacity: 1;
+}
+    
+.slide-button .icon {
+    margin-right: 6px;
 }
 
-a.btn-flashy {
-    color: #092168;
-    box-shadow: #092168 0 0px 0px 2px inset;
-    text-decoration: none;
+.slide-primary, .slide-secondary {
+    display: block;
+    padding: 0 32px;
+    line-height: 64px;
+    transition: margin .4s;
 }
 
-a.btn-flashy:hover {
-    color: rgba(255, 255, 255, 0.85);
-    box-shadow: #092168 0 80px 0px 2px inset;
-    text-decoration: none;
+.slide-primary {
+    background-color: #03899C;
+    color: #fff;
 }
 
+.slide-button:hover .slide-primary {
+    margin-top: -64px;
+    color: #03899C;
+}
+
+.login-button {
+    height: 40px;
+    display: block;
+    border: 3px solid #FF7A00;
+    border-radius: .25rem;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    color: #FF7A00;
+    overflow: hidden;
+    text-decoration: none !important;
+    margin-right: 6px;
+    font-size: 1.3rem;
+}
+
+.login-primary, .login-secondary {
+    display: block;
+    padding: 0 18px;
+    line-height: 38px;
+    transition: margin .4s;
+}
+
+.login-primary {
+    background-color: #FF7A00;
+    color: #fff;
+}
+
+.login-button:hover .login-primary {
+    margin-top: -40px;
+    color: #FF7A00;
+}
 
 /* FORMATTING FOR MOBILE */
-@media all and (max-width:30em){
-     a.button1{
-      display:block;
-      margin:0.4em auto;
-     }
-    }

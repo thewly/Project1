@@ -16,12 +16,12 @@ function updateTable(){
   })
 }
 
-$(document).on('click', '.switch-element-btn', function(){
-  var hideElement = $(this).data('hide')
-  var showElement = $(this).data('show')
-  $(`#${hideElement}`).addClass('hidden-element')
-  $(`#${showElement}`).removeClass('hidden-element')
-})
+// $(document).on('click', '.switch-element-btn', function(){
+//   var hideElement = $(this).data('hide')
+//   var showElement = $(this).data('show')
+//   $(`#${hideElement}`).addClass('hidden-element')
+//   $(`#${showElement}`).removeClass('hidden-element')
+// })
 
 $('#submit-btn').on('click', function(){
   var date = new Date()
