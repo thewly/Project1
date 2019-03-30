@@ -20,6 +20,10 @@ html, body {
     font-size: 1.5rem;
 }
 
+.navbar-toggle-icon {
+    color: #ffffff;
+}
+
 h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.9em;
@@ -88,8 +92,18 @@ h2 {
 }
 
 .home-btn, #login-info {
-    color: #FF7A00;
+    color: #ff7a00;
     font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.home-btn {
+    margin-right: 25px;
+}
+
+.orange-button, .orange-button:hover {
+    background-color: #ff7a00;
+    color: #ffffff;
     cursor: pointer;
 }
 

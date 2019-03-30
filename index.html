@@ -45,14 +45,12 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
-                <a class="login-button ml-auto" href="#" id='login-info'>
-                    <div class="login-primary">
-                        <span class="icon fas fa-key"></span>
-                    </div>
-                    <div class="login-secondary">
-                        log in
-                    </div>
+                <span class="fas fa-home home-btn ml-auto" data-show="landingPage" title="Home"></span>
+                <span class="fas fa-hiking home-btn" data-show="searchPage" title="New Trip"></span>
+                <span class="fas fa-shoe-prints home-btn" data-show="selectionPage" title="Trip Tables"></span>
+                <a class="login-button" href="#" id='login-info'>
+                    <div class="login-primary"><span class="icon fas fa-key"></span></div>
+                    <div class="login-secondary">log in</div>
                 </a>
             </div>
 
@@ -100,48 +98,47 @@
             <div class="col-6">
                 <div class="searchBox d-flex">
 
-                    <!-- DESTINATION DETAILS -->
+                    <!-- TRIP PAGE DETAILS -->
                     <div class="container align-self-center" id="tripPage">
                         <h2>Where's the NEXT JRNY?</h2>
-                        <form>
+                        <form id="tripForm">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="destinationInput"
-                                placeholder="Destination 3-Digit Airport Code">
+                                <input type="text" class="form-control" id="cityDestination" placeholder="Destination">
                             </div>
-                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
-                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="cityDestination"
-                                placeholder="Your Destination City">
-                            </div>
+
                             <div class="form-row">
-                                <div class="col-auto">
-                                    <input type="date" class="form-control" id="departDateInput">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
-                                </div>
+                                <div class="col"><input type="text" class="form-control" id="destinationInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
+                            </div>
+
+                            <!-- FIX: Change min="2019-01-01" with motion.js to perpetually current date -->
+                            <div class="form-row">
+                                <div class="col-auto"><input type="date" class="form-control" min="2019-01-01" max="2021-12-31" id="departDateInput" required></div>
+                                <div class="col-auto"><button type="submit" class="btn orange-button submit-quick-btn" data-submit="tripForm" data-hide="tripPage" data-show="originPage"><span class="fas fa-arrow-right"></span></button></div>
                             </div>
                         </form>
                     </div>
 
-                    <!-- ORIGIN DETAILS -->
+                    <!-- ORIGIN PAGE DETAILS -->
                     <div class="container align-self-center hidden-element" id="originPage">
                         <h2>And where does it BEGIN?</h2>
-                        <form>
+                        <form id="originForm">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="originInput"
-                                    placeholder="Origin 3-Digit Airport Code">
+                                <input type="text" class="form-control" id="originInput" placeholder="Origin">
                             </div>
-                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
-                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
+
                             <div class="form-row">
+                                <div class="col"><input type="text" class="form-control" id="originInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-auto"><input type="text" class="form-control" id="nameInput" placeholder="Your full name" required></div>
                                 <div class="col-auto">
-                                    <input type="text" class="form-control" id="nameInput" placeholder="Your name">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-undo-alt"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-arrow-left"></i></button>
+                                    <button type="submit" class="btn orange-button submit-switch-btn" id='submit-btn' data-submit="originForm" data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -248,6 +245,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src='./assets/javascript/app.js'></script>
 
 </body>
