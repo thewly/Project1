@@ -71,17 +71,17 @@ function loadSpecificSearch(index, user) {
     totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-    console.log(searchObj)
+    console.log(totalTripDays + ' | ' + totalTripPrice)
     bing_image_search(searchObj.term)
 
-    $('.travelerName').text(searchObj.name)
-    $('.startingLocation').text(searchObj.startLoc)
-    $('.destinationName').text(searchObj.endLoc)
+    $('.travelerName').text(searchObj.name ? searchObj.name : 'Philip J Fry')
+    $('.startingLocation').text(searchObj.startLoc ? searchObj.startLoc : 'DFW')
+    $('.destinationName').text(searchObj.endLoc? searchObj.endLoc : 'PHL')
     $('.departureDate').text(moment(searchObj.leaveDate).format("MM/DD/YYYY"))
     $('.plannedOnDate').text(moment(searchObj.plannedOn).format("MM/DD/YYYY"))
     $('.percentToLeave').text(`${cleanPercentage}%`)
     $('.totalTripCost').text(`$${totalTripPrice}`)
-    $('.amountSavePerDay').text(`$${(totalTripPrice * (oneDayPercent / 100)).toFixed(2)}`)
+    $('.amountSavePerDay').text(`$${(totalTripPrice / (totalTripDays ? totalTripDays : 1)).toFixed(2)}`)
     $('.amountCurrentlySaved').text(`$${(totalTripPrice * (cleanPercentage / 100)).toFixed(2)}`)
     $('.amountLeftToSave').text(`$${(totalTripPrice * ((100 - cleanPercentage) / 100)).toFixed(2)}`)
   })
@@ -231,7 +231,7 @@ $('#submit-btn').on('click', function () {
 
 
 // Testing Google Auth
-$('#google-login-btn').on('click', function () {
+$('#login-info').on('click', function () {
   event.preventDefault()
   firebase.auth().signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
