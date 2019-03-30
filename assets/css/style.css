@@ -40,6 +40,7 @@ h2 {
 
 .col-3, .col-6 {
     padding: 10px;
+    /* margin: 0 -10px; */
 }
 
 .imgBlock {
@@ -48,7 +49,7 @@ h2 {
     object-fit: cover;
 }
 
-/* LANDING & SEARCH & SELECTION PAGE */
+/* LANDING & SEARCH PAGE */
 
 #landingPage {
     height: calc(100% - 76px);
@@ -58,20 +59,22 @@ h2 {
     background:#ffffff url("../images/splash-airport.png") no-repeat;
     opacity: .8;
     height: 100%;
-    transition: opacity .5, height .5s;
+    transition: opacity .5s, height .5s;
 }
 
 #searchPage {
     height: calc(100% - 76px);
-    transition: opacity .5;
+    transition: opacity .5s;
 }
 
 .searchBox {
     background-color: #03899C;
     height: 250px;
     padding: 20px;
-    transition: opacity .5;
+    transition: opacity .5s;
 }
+
+/* SELECTION PAGE */
 
 #selectionPage {
     height: calc(100% - 76px);
@@ -79,20 +82,67 @@ h2 {
 
 #selectionPage-bg {
     background:#ffffff url("../images/splash-map.png") no-repeat;
-    /* opacity: .65; */
-    height: 100%;
-    transition: opacity .5, height .5s;
+    background-size: cover;
+    transition: opacity .5s, height .5s;
 }
 
 .breathing-room {
-    background-color:#17a2b8;
+    background-color:#03899C;
     color: #ffffff;
-    margin: 25px;
+    margin: 25px 15px;
 }
 
 #destinationImage {
     width: 100%;
     margin-bottom: 20px;
+}
+
+.table {
+    color: #ffffff;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+thead {
+    background: #092168;
+}
+
+.tableFormat {
+    padding: 1.25rem 0 0 0;
+}
+
+.table th {
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+#quoteBlock {
+    background: #ff7a00 url("../images/stock10.jpg") no-repeat;
+    background-size: cover;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    opacity: .75;
+    text-align: center;
+    line-height: 182%;
+    margin: 25px;
+    border-top-left-radius: .35rem;
+    border-top-right-radius: .35rem;
+    border: none;
+}
+
+/* DESTINATION PAGE */
+
+#destinationPage-bg {
+    background:#03899C;
+    background-size: cover;
+    transition: opacity .5s, height .5s;
+}
+
+#progressResult {
+    background: #092168;
+    padding: 10px;
+    margin: 0;
 }
 
 /* VISUAL EFFECTS */
@@ -111,6 +161,7 @@ h2 {
 
 .btn {
     background-color: #092168;
+    border-color: none;
 }
 
 .home-btn, #login-info {
