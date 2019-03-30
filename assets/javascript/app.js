@@ -65,13 +65,11 @@ function loadSpecificSearch(index, user) {
     var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
     // this get the percentage of the trip that's done
     var progressBar = howManyHasItBeen / totalTripDays * 100;
-    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 0;
-    console.log("To what percent am I done: " + cleanPercentage);
+    var cleanPercentage = Math.round(progressBar);
     var oneDayPercent = Math.round(1 / totalTripDays * 100)
     totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
-    console.log(totalTripDays + ' | ' + totalTripPrice)
     bing_image_search(searchObj.term)
 
     $('.travelerName').text(searchObj.name ? searchObj.name : 'Philip J Fry')
