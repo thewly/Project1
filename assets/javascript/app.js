@@ -108,7 +108,6 @@ $(document).on('click', '.switch-element-btn', function() {
 // SWITCH SECTIONS AFTER VALIDATION
 $(document).on('click', '.submit-switch-btn', function() {
   var submitPage = $(this).data('submit');
-  
   if ($(`#${submitPage}`)[0].checkValidity()) {
     var showPage = $(this).data('show');
     var hidePage = $(this).data('hide');
@@ -136,7 +135,7 @@ $(document).on('click', '.quick-switch-btn', function() {
 // SWITCH SECTIONS QUICKLY AFTER VALIDATION
 $(document).on('click', '.submit-quick-btn', function() {
   var submitPage = $(this).data('submit');
-  
+
   if ($(`#${submitPage}`)[0].checkValidity()) {
     var showPage = $(this).data('show');
     var hidePage = $(this).data('hide');
