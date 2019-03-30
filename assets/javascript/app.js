@@ -87,12 +87,18 @@ function loadSpecificSearch(index, user) {
   })
 }
 
-$(document).on('click', "#loadSearchPage", function () {
+$(document).on('click', "#loadSearchPage", function (event) {
+
+  event.preventDefault();
+
   loadSpecificSearch($(this).data('search'), $(this).data('user'))
 })
 
 // SWITCH SECTIONS W/FADEOUT
-$(document).on('click', '.switch-element-btn', function() {
+$(document).on('click', '.switch-element-btn', function(event) {
+
+  event.preventDefault();
+
   var showPage = $(this).data('show');
   var hidePage = $(this).data('hide');
   $(`#${hidePage}`).addClass('disappear');
@@ -108,7 +114,10 @@ $(document).on('click', '.switch-element-btn', function() {
 })
 
 // SWITCH SECTIONS AFTER VALIDATION
-$(document).on('click', '.submit-switch-btn', function() {
+$(document).on('click', '.submit-switch-btn', function(event) {
+
+event.preventDefault();
+
   var submitPage = $(this).data('submit');
   
   if ($(`#${submitPage}`)[0].checkValidity()) {
@@ -128,7 +137,8 @@ $(document).on('click', '.submit-switch-btn', function() {
 })
 
 // SWITCH SECTIONS QUICKLY (NO FADE)
-$(document).on('click', '.quick-switch-btn', function() {
+$(document).on('click', '.quick-switch-btn', function(event) {
+  event.preventDefault();
   var showPage = $(this).data('show');
   var hidePage = $(this).data('hide');
   $(`#${hidePage}`).addClass('hidden-element');
@@ -136,7 +146,8 @@ $(document).on('click', '.quick-switch-btn', function() {
 })
 
 // SWITCH SECTIONS QUICKLY AFTER VALIDATION
-$(document).on('click', '.submit-quick-btn', function() {
+$(document).on('click', '.submit-quick-btn', function(event) {
+  event.preventDefault();
   var submitPage = $(this).data('submit');
   
   if ($(`#${submitPage}`)[0].checkValidity()) {
@@ -148,7 +159,8 @@ $(document).on('click', '.submit-quick-btn', function() {
 })
 
 // NAVBAR ICON SWITCH SECTIONS QUICKLY
-$(document).on('click', '.home-btn', function() {
+$(document).on('click', '.home-btn', function(event) {
+  event.preventDefault();
   $("#landingPage").addClass('hidden-element');
   $("#searchPage").addClass('hidden-element');
   $("#originPage").addClass('hidden-element');
@@ -159,11 +171,15 @@ $(document).on('click', '.home-btn', function() {
   $(`#${submitPage}`).removeClass('hidden-element');
 })
 
-$('#showSelectionPage').on('click', function () {
+$('#showSelectionPage').on('click', function (event) {
+  event.preventDefault();
   updateTable()
 })
 
-$('#submit-btn').on('click', function () {
+$('#submit-btn').on('click', function (event) {
+
+  event.preventDefault();
+
   var name = $('#nameInput').val()
   var startLocation = $('#originInput').val()
   var endLocation = $('#destinationInput').val()
@@ -197,6 +213,8 @@ $('#submit-btn').on('click', function () {
       headers: { "X-RapidAPI-Key": "7eb4efc85dmshdb58c9c105cc67ep10f420jsn7c5d7db36997" },
       method: "GET"
     }).then(function (response) {
+      console.log(response);
+
       bing_image_search(term)
       var price = response.cheapestPriceTotal
       var searchData = {
@@ -208,6 +226,10 @@ $('#submit-btn').on('click', function () {
         tripPrice: price,
         term: term,
       }
+      if (response.cheapestPriceTotal === -1 || response.cheapestPriceTotal === 0) {
+        $('#kajakIsBroken').modal('show');
+        return false;
+      } 
       database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
         var searchesArr = snap.val().searches.filter(Boolean)
@@ -231,8 +253,10 @@ $('#submit-btn').on('click', function () {
 
 
 // Testing Google Auth
-$('#login-info').on('click', function () {
+$('#login-info').on('click', function (event) {
+
   event.preventDefault()
+
   firebase.auth().signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
@@ -320,8 +344,8 @@ var bing_image_search = function (search) {
         }
     };
     $.ajax (request_params).then(function (response){
-      $("#destinationImage").attr("src", response.value[0].thumbnailUrl);
-      console.log(response.value[0].thumbnailUrl);
+      $("#destinationImage").attr("src", response.value[0].contentUrl);
+      console.log(response);
   });
 }
 

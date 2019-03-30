@@ -40,7 +40,8 @@
         <nav class="navbar navbar-expand-lg">
             <span class="navbar-brand">NEXT JRNY</span>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -71,7 +72,8 @@
                 </div>
             </a>
 
-            <a class="slide-button switch-element-btn" id='showSelectionPage' data-hide="landingPage" data-show="selectionPage" href="#">
+            <a class="slide-button switch-element-btn" id='showSelectionPage' data-hide="landingPage"
+                data-show="selectionPage" href="#">
                 <div class="slide-primary">
                     <span class="icon fas fa-shoe-prints"></span>
                     FOLLOW FOOTSTEPS
@@ -106,18 +108,28 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col"><input type="text" class="form-control" id="destinationInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
-                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
-                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
+                                <div class="col"><input type="text" class="form-control" id="destinationInput"
+                                        placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3"
+                                        required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml"
+                                        target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a
+                                        href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"
+                                        target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
                             </div>
 
                             <!-- FIX: Change min="2019-01-01" with motion.js to perpetually current date -->
                             <div class="form-row">
                                 <div class="col-auto">
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">Departure</span></div>
-                                        <input type="date" class="form-control" min="2019-01-01" max="2021-12-31" id="departDateInput" required>
-                                        <div class="input-group-append"><button type="submit" class="btn orange-button submit-quick-btn" data-submit="tripForm" data-hide="tripPage" data-show="originPage"><span class="fas fa-arrow-right"></span></button></div>
+                                        <div class="input-group-prepend"><span class="input-group-text">Departure</span>
+                                        </div>
+                                        <input type="date" class="form-control" min="2019-01-01" max="2021-12-31"
+                                            id="departDateInput" required>
+                                        <div class="input-group-append"><button type="submit"
+                                                class="btn orange-button submit-quick-btn" data-submit="tripForm"
+                                                data-hide="tripPage" data-show="originPage"><span
+                                                    class="fas fa-arrow-right"></span></button></div>
                                     </div>
                                 </div>
                             </div>
@@ -133,22 +145,32 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col"><input type="text" class="form-control" id="originInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
-                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
-                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
+                                <div class="col"><input type="text" class="form-control" id="originInput"
+                                        placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3"
+                                        required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml"
+                                        target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a
+                                        href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"
+                                        target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
                             </div>
 
                             <div class="form-row">
-                                <div class="col-auto"><input type="text" class="form-control" id="nameInput" placeholder="Your full name" required></div>
+                                <div class="col-auto"><input type="text" class="form-control" id="nameInput"
+                                        placeholder="Your full name" required></div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-arrow-left"></i></button>
-                                    <button type="submit" class="btn orange-button submit-switch-btn" id='submit-btn' data-submit="originForm" data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary quick-switch-btn"
+                                        data-hide="originPage" data-show="tripPage"><i
+                                            class="fas fa-arrow-left"></i></button>
+                                    <button type="submit" class="btn orange-button submit-switch-btn" id='submit-btn'
+                                        data-submit="originForm" data-hide="searchPage" data-show="destinationPage"><i
+                                            class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                   <div></div>
+                    <div></div>
 
                 </div>
             </div>
@@ -214,10 +236,13 @@
             <div class="col-md-12">
                 <div class="card breathing-room">
                     <div class="card-body">
-                        <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
+                        <img class="image-fluid" id="destinationImage"
+                            src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
                         </br>
                         <div class="progress">
-                            <div class="progress-bar" id="destinationProgress" role="progressbar"style="width:50%; background-color:#FF7A00" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" id="destinationProgress" role="progressbar"
+                                style="width:50%; background-color:#FF7A00" aria-valuenow="50" aria-valuemin="0"
+                                aria-valuemax="100"></div>
                         </div>
                         </br>
                         <div class="row">
@@ -239,7 +264,8 @@
                                 <p>Total amount to save: <span class='totalTripCost'></span> </p>
                                 <p>Daily, I should save: <span class='amountSavePerDay'>$4,000</span></p>
                                 <p>So far, I have saved: <span class="amountCurrentlySaved">$644,000</span></p>
-                                <p>I only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
+                                <p>I only have this much left to save: <span class="amountLeftToSave">$1,000,000</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -247,11 +273,36 @@
             </div>
         </div>
     </div>
-
+    <div id="kajakIsBroken" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kayak is broken</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sometimes, Kayak can't give you a price because one or more of it's subsidiary APIs is returning
+                        an error. Please try again with an alternate destination location or departure date. This page
+                        will still display your progress & a fun wallpaper of your destination, but the price
+                        information will not be correct due to Kayak's failure.</p>
+                </div>
+                <div class="modal-footer">
+                   
+                    <button type="button" class="btn btn-primary close home-btn" data-dismiss="modal" data-show="landingPage">Start Over</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script src='./assets/javascript/app.js'></script>
 
 </body>
+
 </html>
