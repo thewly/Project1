@@ -20,6 +20,10 @@ html, body {
     font-size: 1.5rem;
 }
 
+.navbar-toggle-icon {
+    color: #ffffff;
+}
+
 h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.9em;
@@ -44,7 +48,7 @@ h2 {
     object-fit: cover;
 }
 
-/* LANDING & SEARCH PAGE */
+/* LANDING & SEARCH & SELECTION PAGE */
 
 #landingPage {
     height: calc(100% - 76px);
@@ -69,6 +73,28 @@ h2 {
     transition: opacity .5;
 }
 
+#selectionPage {
+    height: calc(100% - 76px);
+}
+
+#selectionPage-bg {
+    background:#ffffff url("../images/splash-map.png") no-repeat;
+    /* opacity: .65; */
+    height: 100%;
+    transition: opacity .5, height .5s;
+}
+
+.breathing-room {
+    background-color:#17a2b8;
+    color: #ffffff;
+    margin: 25px;
+}
+
+#destinationImage {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 /* VISUAL EFFECTS */
 
 .hidden-element {
@@ -88,8 +114,18 @@ h2 {
 }
 
 .home-btn, #login-info {
-    color: #FF7A00;
+    color: #ff7a00;
     font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.home-btn {
+    margin-right: 25px;
+}
+
+.orange-button, .orange-button:hover {
+    background-color: #ff7a00;
+    color: #ffffff;
     cursor: pointer;
 }
 

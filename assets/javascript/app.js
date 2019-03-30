@@ -89,6 +89,7 @@ $(document).on('click', "#loadSearchPage", function () {
   loadSpecificSearch($(this).data('search'), $(this).data('user'))
 })
 
+// SWITCH SECTIONS W/FADEOUT
 $(document).on('click', '.switch-element-btn', function() {
   var showPage = $(this).data('show');
   var hidePage = $(this).data('hide');
@@ -104,6 +105,27 @@ $(document).on('click', '.switch-element-btn', function() {
   }, 700);
 })
 
+// SWITCH SECTIONS AFTER VALIDATION
+$(document).on('click', '.submit-switch-btn', function() {
+  var submitPage = $(this).data('submit');
+  
+  if ($(`#${submitPage}`)[0].checkValidity()) {
+    var showPage = $(this).data('show');
+    var hidePage = $(this).data('hide');
+    $(`#${hidePage}`).addClass('disappear');
+    $(`#${showPage}`).addClass('disappear');
+    setTimeout(function() {
+        $(`#${hidePage}`).addClass('hidden-element');
+        $(`#${hidePage}`).removeClass('disappear');
+        $(`#${showPage}`).removeClass('hidden-element');
+        setTimeout(function() {
+            $(`#${showPage}`).removeClass('disappear');
+        }, 250)
+    }, 700);
+  }
+})
+
+// SWITCH SECTIONS QUICKLY (NO FADE)
 $(document).on('click', '.quick-switch-btn', function() {
   var showPage = $(this).data('show');
   var hidePage = $(this).data('hide');
@@ -111,26 +133,32 @@ $(document).on('click', '.quick-switch-btn', function() {
   $(`#${showPage}`).removeClass('hidden-element');
 })
 
+// SWITCH SECTIONS QUICKLY AFTER VALIDATION
+$(document).on('click', '.submit-quick-btn', function() {
+  var submitPage = $(this).data('submit');
+  
+  if ($(`#${submitPage}`)[0].checkValidity()) {
+    var showPage = $(this).data('show');
+    var hidePage = $(this).data('hide');
+    $(`#${hidePage}`).addClass('hidden-element');
+    $(`#${showPage}`).removeClass('hidden-element');
+  }
+})
+
+// NAVBAR ICON SWITCH SECTIONS QUICKLY
 $(document).on('click', '.home-btn', function() {
+  $("#landingPage").addClass('hidden-element');
   $("#searchPage").addClass('hidden-element');
   $("#originPage").addClass('hidden-element');
   $("#tripPage").removeClass('hidden-element');
   $("#selectionPage").addClass('hidden-element');
   $("#destinationPage").addClass('hidden-element');
-  $("#landingPage").removeClass('hidden-element');
+  var submitPage = $(this).data('show');
+  $(`#${submitPage}`).removeClass('hidden-element');
 })
 
 $('#showSelectionPage').on('click', function () {
   updateTable()
-})
-
-$(document).on('click', '.home-btn', function () {
-  $("#searchPage").addClass('hidden-element');
-  $("#originPage").addClass('hidden-element');
-  $("#tripPage").removeClass('hidden-element');
-  $("#selectionPage").addClass('hidden-element');
-  $("#destinationPage").addClass('hidden-element');
-  $("#landingPage").removeClass('hidden-element');
 })
 
 $('#submit-btn').on('click', function () {

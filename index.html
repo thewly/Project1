@@ -45,14 +45,12 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="navbar-nav"><i class="fas fa-home home-btn"></i></div>
-                <a class="login-button ml-auto" href="#" id='login-info'>
-                    <div class="login-primary">
-                        <span class="icon fas fa-key"></span>
-                    </div>
-                    <div class="login-secondary">
-                        log in
-                    </div>
+                <span class="fas fa-home home-btn ml-auto" data-show="landingPage" title="Home"></span>
+                <span class="fas fa-hiking home-btn" data-show="searchPage" title="New Trip"></span>
+                <span class="fas fa-shoe-prints home-btn" data-show="selectionPage" title="Trip Tables"></span>
+                <a class="login-button" href="#" id='login-info'>
+                    <div class="login-primary"><span class="icon fas fa-key"></span></div>
+                    <div class="login-secondary">log in</div>
                 </a>
             </div>
 
@@ -60,9 +58,8 @@
     </div>
 
     <div class="container text-center" id="landingPage">
-        <div class = "container" id="landingPage-bg"></div>
+        <div class="container" id="landingPage-bg"></div>
         <div class="wrap">
-
             <a class="slide-button switch-element-btn" data-hide="landingPage" data-show="searchPage" href="#">
                 <div class="slide-primary">
                     <span class="icon fas fa-hiking"></span>
@@ -100,48 +97,52 @@
             <div class="col-6">
                 <div class="searchBox d-flex">
 
-                    <!-- DESTINATION DETAILS -->
+                    <!-- TRIP PAGE DETAILS -->
                     <div class="container align-self-center" id="tripPage">
                         <h2>Where's the NEXT JRNY?</h2>
-                        <form>
+                        <form id="tripForm">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="destinationInput"
-                                placeholder="Destination 3-Digit Airport Code">
+                                <input type="text" class="form-control" id="cityDestination" placeholder="Destination">
                             </div>
-                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
-                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="cityDestination"
-                                placeholder="Your Destination City">
+
+                            <div class="form-row">
+                                <div class="col"><input type="text" class="form-control" id="destinationInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
                             </div>
+
+                            <!-- FIX: Change min="2019-01-01" with motion.js to perpetually current date -->
                             <div class="form-row">
                                 <div class="col-auto">
-                                    <input type="date" class="form-control" id="departDateInput">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="tripPage" data-show="originPage"><i class="far fa-map"></i></button>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">Departure</span></div>
+                                        <input type="date" class="form-control" min="2019-01-01" max="2021-12-31" id="departDateInput" required>
+                                        <div class="input-group-append"><button type="submit" class="btn orange-button submit-quick-btn" data-submit="tripForm" data-hide="tripPage" data-show="originPage"><span class="fas fa-arrow-right"></span></button></div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <!-- ORIGIN DETAILS -->
+                    <!-- ORIGIN PAGE DETAILS -->
                     <div class="container align-self-center hidden-element" id="originPage">
                         <h2>And where does it BEGIN?</h2>
-                        <form>
+                        <form id="originForm">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="originInput"
-                                    placeholder="Origin 3-Digit Airport Code">
+                                <input type="text" class="form-control" id="originInput" placeholder="Origin">
                             </div>
-                            <a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">USA Airport Codes</a>
-                            <a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">International Airport Codes</a>
+
                             <div class="form-row">
+                                <div class="col"><input type="text" class="form-control" id="originInput" placeholder="Airport code (3-character)" pattern="[A-Za-z]{3}" maxlength="3" required></div>
+                                <div class="col-auto"><a href="http://www.leonardsguide.com/us-airport-codes.shtml" target="_blank" class="form-group btn btn-primary">U.S. Codes</a></div>
+                                <div class="col-auto"><a href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm" target="_blank" class="form-group btn btn-primary">Intl. Codes</a></div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-auto"><input type="text" class="form-control" id="nameInput" placeholder="Your full name" required></div>
                                 <div class="col-auto">
-                                    <input type="text" class="form-control" id="nameInput" placeholder="Your name">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-undo-alt"></i></button>
-                                    <button type="button" class="btn btn-primary switch-element-btn" id='submit-btn' data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
+                                    <button type="button" class="btn btn-primary quick-switch-btn" data-hide="originPage" data-show="tripPage"><i class="fas fa-arrow-left"></i></button>
+                                    <button type="submit" class="btn orange-button submit-switch-btn" id='submit-btn' data-submit="originForm" data-hide="searchPage" data-show="destinationPage"><i class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -162,42 +163,46 @@
     </div>
 
     <div class="container hidden-element" id="selectionPage">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="myTripsTable" class="card breathing-room">
-                    <div class="card-body">
-                        <h4 class="text-center">My Trips</h4>
+        <div class="container" id="selectionPage-bg">
+            <div class="row">
+                <div class="col-12">
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">Planned On</th>
-                                    <th scope="col">Departure Date</th>
-                                    <th scope="col">Button</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myTrips"></tbody>
-                        </table>
+                    <div id="myTripsTable" class="card breathing-room">
+                        <div class="card-body">
+                            <h4 class="text-center">Personal Trips</h4>
 
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Destination</th>
+                                        <th scope="col">Planned</th>
+                                        <th scope="col">Departure Date</th>
+                                        <th scope="col">Button</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTrips"></tbody>
+                            </table>
+
+                        </div>
                     </div>
-                </div>
-                <div class="card breathing-room">
-                    <div class="card-body">
-                        <h4 class="text-center">Our Trips</h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">Planned On</th>
-                                    <th scope="col">Departure Date</th>
-                                    <th scope="col">Button</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ourTrips"></tbody>
-                        </table>
+
+                    <div class="card breathing-room">
+                        <div class="card-body">
+                            <h4 class="text-center">Global Community</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Destination</th>
+                                        <th scope="col">Planned</th>
+                                        <th scope="col">Departure Date</th>
+                                        <th scope="col">Button</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ourTrips"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -209,35 +214,32 @@
             <div class="col-md-12">
                 <div class="card breathing-room">
                     <div class="card-body">
-                            <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
-
+                        <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
                         </br>
                         <div class="progress">
-                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar"
-                                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                            </div>
+                            <div class="progress-bar" id="destinationProgress" role="progressbar"style="width:50%; background-color:#FF7A00" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         </br>
-                        <div class="row" style="color:black;">
-                            <div class="col-md-4">
-                                <h4>Here's your form information:</h4>
+                        <div class="row">
+                            <div class="col">
+                                <h4 style="color:#092168">INFORMATION</h4>
                                 <p>Name: <span class="travelerName">Tiny Tim</span></p>
                                 <p>Departing from: <span class='startingLocation'>Dallas, TX</span></p>
                                 <p>Destination: <span class="destinationName">Tuscany, Italy</span></p>
-                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>Leaving: <span class="departureDate">Dec 31st, 2019</span></p>
                             </div>
-                            <div class="col-md-4">
-                                <h4>Here's your progress:</h4>
-                                <p>You planned your trip on: <span class="plannedOnDate">July 4th, 2019</span></p>
-                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
-                                <p>You are: <span class='percentToLeave'>25%</span> of the way there!</p>
+                            <div class="col">
+                                <h4 style="color:#092168">PROGRESS</h4>
+                                <p>Trip planned on: <span class="plannedOnDate">July 4th, 2019</span></p>
+                                <p>Leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>So I am <span class='percentToLeave'>25%</span> of the way there!</p>
                             </div>
-                            <div class="col-md-4">
-                                <h4>Micro Goals:</h4>
+                            <div class="col">
+                                <h4 style="color:#092168">MICRO-GOALS</h4>
                                 <p>Total amount to save: <span class='totalTripCost'></span> </p>
-                                <p>Each day I need to be saving: <span class='amountSavePerDay'>$4,000</span></p>
-                                <p>So far I've saved: <span class="amountCurrentlySaved">$644,000</span></p>
-                                <p>You only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
+                                <p>Daily, I should save: <span class='amountSavePerDay'>$4,000</span></p>
+                                <p>So far, I have saved: <span class="amountCurrentlySaved">$644,000</span></p>
+                                <p>I only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
                             </div>
                         </div>
                     </div>
@@ -248,6 +250,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src='./assets/javascript/app.js'></script>
 
 </body>
