@@ -48,7 +48,7 @@ h2 {
     object-fit: cover;
 }
 
-/* LANDING & SEARCH PAGE */
+/* LANDING & SEARCH & SELECTION PAGE */
 
 #landingPage {
     height: calc(100% - 76px);
@@ -71,6 +71,17 @@ h2 {
     height: 250px;
     padding: 20px;
     transition: opacity .5;
+}
+
+#selectionPage {
+    height: calc(100% - 76px);
+}
+
+#selectionPage-bg {
+    background:#ffffff url("../images/splash-map.png") no-repeat;
+    opacity: .65;
+    height: 100%;
+    transition: opacity .5, height .5s;
 }
 
 /* VISUAL EFFECTS */

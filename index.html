@@ -58,9 +58,8 @@
     </div>
 
     <div class="container text-center" id="landingPage">
-        <div class = "container" id="landingPage-bg"></div>
+        <div class="container" id="landingPage-bg"></div>
         <div class="wrap">
-
             <a class="slide-button switch-element-btn" data-hide="landingPage" data-show="searchPage" href="#">
                 <div class="slide-primary">
                     <span class="icon fas fa-hiking"></span>
@@ -159,42 +158,44 @@
     </div>
 
     <div class="container hidden-element" id="selectionPage">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="myTripsTable" class="card breathing-room">
-                    <div class="card-body">
-                        <h4 class="text-center">My Trips</h4>
+        <div class="container" id="selectionPage-bg">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="myTripsTable" class="card breathing-room">
+                        <div class="card-body">
+                            <h4 class="text-center">My Trips</h4>
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">Planned On</th>
-                                    <th scope="col">Departure Date</th>
-                                    <th scope="col">Button</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myTrips"></tbody>
-                        </table>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Destination</th>
+                                        <th scope="col">Planned On</th>
+                                        <th scope="col">Departure Date</th>
+                                        <th scope="col">Button</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTrips"></tbody>
+                            </table>
 
+                        </div>
                     </div>
-                </div>
-                <div class="card breathing-room">
-                    <div class="card-body">
-                        <h4 class="text-center">Our Trips</h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Destination</th>
-                                    <th scope="col">Planned On</th>
-                                    <th scope="col">Departure Date</th>
-                                    <th scope="col">Button</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ourTrips"></tbody>
-                        </table>
+                    <div class="card breathing-room">
+                        <div class="card-body">
+                            <h4 class="text-center">Our Trips</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Destination</th>
+                                        <th scope="col">Planned On</th>
+                                        <th scope="col">Departure Date</th>
+                                        <th scope="col">Button</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ourTrips"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -204,37 +205,35 @@
     <div class="container hidden-element" id="destinationPage">
         <div class="row">
             <div class="col-md-12">
-                <div class="card breathing-room">
+                <div class="card breathing-room" style="background-color:#17a2b8"">
                     <div class="card-body">
                             <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
 
                         </br>
                         <div class="progress">
-                            <div class="progress-bar bg-info" id="destinationProgress" role="progressbar"
-                                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                            </div>
+                            <div class="progress-bar" id="destinationProgress" role="progressbar"style="width:50%; background-color:#FF7A00" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         </br>
-                        <div class="row" style="color:black;">
-                            <div class="col-md-4">
-                                <h4>Here's your form information:</h4>
+                        <div class="row">
+                            <div class="col">
+                                <h4 style="color:#092168">INFORMATION</h4>
                                 <p>Name: <span class="travelerName">Tiny Tim</span></p>
                                 <p>Departing from: <span class='startingLocation'>Dallas, TX</span></p>
                                 <p>Destination: <span class="destinationName">Tuscany, Italy</span></p>
-                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>Leaving: <span class="departureDate">Dec 31st, 2019</span></p>
                             </div>
-                            <div class="col-md-4">
-                                <h4>Here's your progress:</h4>
-                                <p>You planned your trip on: <span class="plannedOnDate">July 4th, 2019</span></p>
-                                <p>You're leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
-                                <p>You are: <span class='percentToLeave'>25%</span> of the way there!</p>
+                            <div class="col">
+                                <h4 style="color:#092168">PROGRESS</h4>
+                                <p>Trip planned on: <span class="plannedOnDate">July 4th, 2019</span></p>
+                                <p>Leaving on: <span class="departureDate">Dec 31st, 2019</span></p>
+                                <p>So I am <span class='percentToLeave'>25%</span> of the way there!</p>
                             </div>
-                            <div class="col-md-4">
-                                <h4>Micro Goals:</h4>
+                            <div class="col">
+                                <h4 style="color:#092168">MICRO-GOALS</h4>
                                 <p>Total amount to save: <span class='totalTripCost'></span> </p>
-                                <p>Each day I need to be saving: <span class='amountSavePerDay'>$4,000</span></p>
-                                <p>So far I've saved: <span class="amountCurrentlySaved">$644,000</span></p>
-                                <p>You only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
+                                <p>Daily, I should save: <span class='amountSavePerDay'>$4,000</span></p>
+                                <p>So far, I have saved: <span class="amountCurrentlySaved">$644,000</span></p>
+                                <p>I only have this much left to save: <span class="amountLeftToSave">$1,000,000</span></p>
                             </div>
                         </div>
                     </div>
