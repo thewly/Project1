@@ -37,7 +37,7 @@ function populateTables(table, data) {
         <th scope="col">${data[data.length - 1 - i].endLoc}</th>
         <th scope="col">${moment(data[data.length - 1 - i].plannedOn).format("MM/DD/YYYY")}</th>
         <th scope="col">${moment(data[data.length - 1 - i].leaveDate).format("MM/DD/YYYY")}</th>
-        <th scope="col"><button class="switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${data.length - 1 - i}" data-user="true">Button</button></th>
+        <th scope="col-auto"><button class="btn btn-primary switch-element-btn" id="loadSearchPage" data-hide="selectionPage" data-show="destinationPage" data-search="${data.length - 1 - i}" data-user="true"><i class="fas fa-file-export"></i></button></th>
         </tr>
       `)
     }
