@@ -79,9 +79,15 @@ h2 {
 
 #selectionPage-bg {
     background:#ffffff url("../images/splash-map.png") no-repeat;
-    opacity: .65;
+    /* opacity: .65; */
     height: 100%;
     transition: opacity .5, height .5s;
+}
+
+.breathing-room {
+    background-color:#17a2b8;
+    color: #ffffff;
+    margin: 25px;
 }
 
 /* VISUAL EFFECTS */

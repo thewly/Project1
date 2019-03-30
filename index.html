@@ -113,8 +113,13 @@
 
                             <!-- FIX: Change min="2019-01-01" with motion.js to perpetually current date -->
                             <div class="form-row">
-                                <div class="col-auto"><input type="date" class="form-control" min="2019-01-01" max="2021-12-31" id="departDateInput" required></div>
-                                <div class="col-auto"><button type="submit" class="btn orange-button submit-quick-btn" data-submit="tripForm" data-hide="tripPage" data-show="originPage"><span class="fas fa-arrow-right"></span></button></div>
+                                <div class="col-auto">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">Departure</span></div>
+                                        <input type="date" class="form-control" min="2019-01-01" max="2021-12-31" id="departDateInput" required>
+                                        <div class="input-group-append"><button type="submit" class="btn orange-button submit-quick-btn" data-submit="tripForm" data-hide="tripPage" data-show="originPage"><span class="fas fa-arrow-right"></span></button></div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -160,17 +165,18 @@
     <div class="container hidden-element" id="selectionPage">
         <div class="container" id="selectionPage-bg">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
+
                     <div id="myTripsTable" class="card breathing-room">
                         <div class="card-body">
-                            <h4 class="text-center">My Trips</h4>
+                            <h4 class="text-center">Personal Trips</h4>
 
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Destination</th>
-                                        <th scope="col">Planned On</th>
+                                        <th scope="col">Planned</th>
                                         <th scope="col">Departure Date</th>
                                         <th scope="col">Button</th>
                                     </tr>
@@ -180,15 +186,16 @@
 
                         </div>
                     </div>
+
                     <div class="card breathing-room">
                         <div class="card-body">
-                            <h4 class="text-center">Our Trips</h4>
+                            <h4 class="text-center">Global Community</h4>
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Destination</th>
-                                        <th scope="col">Planned On</th>
+                                        <th scope="col">Planned</th>
                                         <th scope="col">Departure Date</th>
                                         <th scope="col">Button</th>
                                     </tr>
@@ -205,7 +212,7 @@
     <div class="container hidden-element" id="destinationPage">
         <div class="row">
             <div class="col-md-12">
-                <div class="card breathing-room" style="background-color:#17a2b8"">
+                <div class="card breathing-room">
                     <div class="card-body">
                             <img class="image-fluid" id="destinationImage" src="https://giphy.com/gifs/kim-novak-tXL4FHPSnVJ0A/fullscreen" alt="Responsive image">
 
