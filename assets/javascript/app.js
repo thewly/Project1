@@ -65,11 +65,13 @@ function loadSpecificSearch(index, user) {
     var totalTripDays = Math.floor((departDate - plannedOn) / 86400000);
     // this get the percentage of the trip that's done
     var progressBar = howManyHasItBeen / totalTripDays * 100;
-    var cleanPercentage = Math.round(progressBar);
+    var cleanPercentage = Math.round(progressBar) ? Math.round(progressBar) : 0;
+    console.log("To what percent am I done: " + cleanPercentage);
     var oneDayPercent = Math.round(1 / totalTripDays * 100)
     totalTripPrice = searchObj.tripPrice ? searchObj.tripPrice : 4242
     // this pushes that percentage to the progress bar, finall
     $("#destinationProgress").attr("style", "width: " + cleanPercentage + "%").attr("aria-valuenow", cleanPercentage);
+    console.log(totalTripDays + ' | ' + totalTripPrice)
     bing_image_search(searchObj.term)
 
     $('.travelerName').text(searchObj.name ? searchObj.name : 'Philip J Fry')
@@ -117,6 +119,7 @@ $(document).on('click', '.submit-switch-btn', function(event) {
 event.preventDefault();
 
   var submitPage = $(this).data('submit');
+
   if ($(`#${submitPage}`)[0].checkValidity()) {
     var showPage = $(this).data('show');
     var hidePage = $(this).data('hide');
@@ -226,7 +229,7 @@ $('#submit-btn').on('click', function (event) {
       if (response.cheapestPriceTotal === -1 || response.cheapestPriceTotal === 0) {
         $('#kajakIsBroken').modal('show');
         return false;
-      } 
+      }
       database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
         var searchesArr = snap.val().searches.filter(Boolean)
@@ -306,7 +309,7 @@ database.ref('.info/connected').on('value', (snap) => {
 
 
 // Here's the image API
-var subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+var subscriptionKey = 'fe32f8914c2c4ab9aea29f2c9e198008';
 
 var host = 'https://api.cognitive.microsoft.com';
 var path = '/bing/v7.0/images/search?q=';
