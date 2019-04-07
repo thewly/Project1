@@ -119,7 +119,7 @@ $(document).on('click', '.submit-switch-btn', function(event) {
 event.preventDefault();
 
   var submitPage = $(this).data('submit');
-  
+
   if ($(`#${submitPage}`)[0].checkValidity()) {
     var showPage = $(this).data('show');
     var hidePage = $(this).data('hide');
@@ -149,7 +149,7 @@ $(document).on('click', '.quick-switch-btn', function(event) {
 $(document).on('click', '.submit-quick-btn', function(event) {
   event.preventDefault();
   var submitPage = $(this).data('submit');
-  
+
   if ($(`#${submitPage}`)[0].checkValidity()) {
     var showPage = $(this).data('show');
     var hidePage = $(this).data('hide');
@@ -229,7 +229,7 @@ $('#submit-btn').on('click', function (event) {
       if (response.cheapestPriceTotal === -1 || response.cheapestPriceTotal === 0) {
         $('#kajakIsBroken').modal('show');
         return false;
-      } 
+      }
       database.ref().once('value', function (snap) {
         var username = snap.val().connections[connectID].user
         var searchesArr = snap.val().searches.filter(Boolean)
@@ -309,7 +309,7 @@ database.ref('.info/connected').on('value', (snap) => {
 
 
 // Here's the image API
-var subscriptionKey = '6c5d779f5daf4b03bac96cf0184fe9e7';
+var subscriptionKey = 'fe32f8914c2c4ab9aea29f2c9e198008';
 
 var host = 'https://api.cognitive.microsoft.com';
 var path = '/bing/v7.0/images/search?q=';
